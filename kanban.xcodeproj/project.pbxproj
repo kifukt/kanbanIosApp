@@ -7,21 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B702316E208F7CEE00301D19 /* MainScreenTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */; };
+		B70CC4B2208DF30E0057182C /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70CC4B1208DF30E0057182C /* ApiClient.swift */; };
+		B736D1CF208DE14500FC18FB /* ApiRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B736D1CE208DE14500FC18FB /* ApiRouter.swift */; };
 		B744853F208894A5002430F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744853E208894A5002430F2 /* AppDelegate.swift */; };
-		B7448541208894A5002430F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7448540208894A5002430F2 /* ViewController.swift */; };
 		B7448544208894A5002430F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7448542208894A5002430F2 /* Main.storyboard */; };
 		B7448546208894A6002430F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7448545208894A6002430F2 /* Assets.xcassets */; };
 		B7448549208894A6002430F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7448547208894A6002430F2 /* LaunchScreen.storyboard */; };
+		B744855320889E4B002430F2 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744855220889E4B002430F2 /* UserObject.swift */; };
+		B747C7D3208BAEC70015861B /* TableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747C7D2208BAEC70015861B /* TableObject.swift */; };
+		B75C4BE4208DDB870082C584 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE3208DDB870082C584 /* LoginViewController.swift */; };
+		B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */; };
+		B79EA396208DF7B5005C953D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79EA395208DF7B5005C953D /* Alamofire.framework */; };
+		B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenTabBarViewController.swift; sourceTree = "<group>"; };
+		B70CC4B1208DF30E0057182C /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		B736D1CE208DE14500FC18FB /* ApiRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRouter.swift; sourceTree = "<group>"; };
 		B744853B208894A5002430F2 /* kanban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kanban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B744853E208894A5002430F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B7448540208894A5002430F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B7448543208894A5002430F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B7448545208894A6002430F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B7448548208894A6002430F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B744854A208894A6002430F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B744855220889E4B002430F2 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
+		B747C7D2208BAEC70015861B /* TableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableObject.swift; sourceTree = "<group>"; };
+		B75C4BE3208DDB870082C584 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		B79EA395208DF7B5005C953D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B79EA396208DF7B5005C953D /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +57,7 @@
 			children = (
 				B744853D208894A5002430F2 /* kanban */,
 				B744853C208894A5002430F2 /* Products */,
+				FB40692E0DA37B0824A4E2FF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +73,36 @@
 			isa = PBXGroup;
 			children = (
 				B744853E208894A5002430F2 /* AppDelegate.swift */,
-				B7448540208894A5002430F2 /* ViewController.swift */,
+				B75C4BE3208DDB870082C584 /* LoginViewController.swift */,
+				B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */,
+				B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */,
 				B7448542208894A5002430F2 /* Main.storyboard */,
+				B79EA399208DF95E005C953D /* Objects */,
 				B7448545208894A6002430F2 /* Assets.xcassets */,
+				B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */,
+				B70CC4B1208DF30E0057182C /* ApiClient.swift */,
+				B736D1CE208DE14500FC18FB /* ApiRouter.swift */,
 				B7448547208894A6002430F2 /* LaunchScreen.storyboard */,
 				B744854A208894A6002430F2 /* Info.plist */,
 			);
 			path = kanban;
+			sourceTree = "<group>";
+		};
+		B79EA399208DF95E005C953D /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				B744855220889E4B002430F2 /* UserObject.swift */,
+				B747C7D2208BAEC70015861B /* TableObject.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		FB40692E0DA37B0824A4E2FF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B79EA395208DF7B5005C953D /* Alamofire.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +115,7 @@
 				B7448537208894A5002430F2 /* Sources */,
 				B7448538208894A5002430F2 /* Frameworks */,
 				B7448539208894A5002430F2 /* Resources */,
+				B79EA397208DF802005C953D /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -130,13 +172,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B79EA397208DF802005C953D /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B7448537208894A5002430F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7448541208894A5002430F2 /* ViewController.swift in Sources */,
+				B75C4BE4208DDB870082C584 /* LoginViewController.swift in Sources */,
+				B744855320889E4B002430F2 /* UserObject.swift in Sources */,
+				B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */,
+				B736D1CF208DE14500FC18FB /* ApiRouter.swift in Sources */,
+				B702316E208F7CEE00301D19 /* MainScreenTabBarViewController.swift in Sources */,
+				B747C7D3208BAEC70015861B /* TableObject.swift in Sources */,
 				B744853F208894A5002430F2 /* AppDelegate.swift in Sources */,
+				B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */,
+				B70CC4B2208DF30E0057182C /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +349,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B8EX7H663R;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = kanban/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -300,6 +371,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B8EX7H663R;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = kanban/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
