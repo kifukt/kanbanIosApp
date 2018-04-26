@@ -20,6 +20,7 @@
 		B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */; };
 		B79EA396208DF7B5005C953D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79EA395208DF7B5005C953D /* Alamofire.framework */; };
 		B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */; };
+		B7F9B9DB2090A4B0006381CB /* UserTablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		B79EA395208DF7B5005C953D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTablesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				B75C4BE3208DDB870082C584 /* LoginViewController.swift */,
 				B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */,
 				B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */,
+				B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */,
 				B7448542208894A5002430F2 /* Main.storyboard */,
 				B79EA399208DF95E005C953D /* Objects */,
 				B7448545208894A6002430F2 /* Assets.xcassets */,
@@ -204,6 +207,7 @@
 				B744853F208894A5002430F2 /* AppDelegate.swift in Sources */,
 				B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */,
 				B70CC4B2208DF30E0057182C /* ApiClient.swift in Sources */,
+				B7F9B9DB2090A4B0006381CB /* UserTablesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

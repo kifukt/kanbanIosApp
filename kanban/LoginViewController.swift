@@ -18,6 +18,7 @@ class LoginViewController: UIViewController {
         ApiClient.signIn(email: loginField.text ?? "", password: passwordField.text ?? "") { (result) in
             switch result {
             case .success(let user):
+                UserDefaults.standard.setValue(user.data.user.email, forKey: "Email")
                 UserDefaults.standard.setValue(user.data.user.authentication_token, forKey: "Token")
                 UserDefaults.standard.synchronize()
                 let mainScreenViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainScreen") as! MainScreenTabBarViewController

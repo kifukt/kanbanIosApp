@@ -26,4 +26,12 @@ class ApiClient {
                 completion(response.result.isSuccess)
         }
     }
+    
+    static func getUserTables(email: String, token: String, completion: @escaping (Result<TableObject>) -> Void) {
+        Alamofire.request(ApiRouter.getUserTables(email: email, token: token))
+            .debugLog()
+            .responseJSONDecodable { (responce: DataResponse<TableObject>) in
+                completion(responce.result)
+        }
+    }
 }
