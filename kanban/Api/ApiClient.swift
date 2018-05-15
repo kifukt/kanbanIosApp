@@ -19,6 +19,14 @@ class ApiClient {
         }
     }
     
+    static func signOut(email: String, token: String, completion: @escaping (Bool) -> Void ) {
+        Alamofire.request(ApiRouter.signOut(email: email, token: token))
+            .debugLog()
+            .responseString { (responce: DataResponse<String>) in
+            completion(responce.result.isSuccess)
+        }
+    }
+    
     static func register(with email: String, password: String, passwordConfirmation: String, completion: @escaping (Bool) -> Void) {
         Alamofire.request(ApiRouter.register(email: email, password: password, passwordConfirmation: passwordConfirmation))
             .debugLog()
@@ -34,4 +42,21 @@ class ApiClient {
                 completion(responce.result)
         }
     }
+    
+    static func createUserTable(email: String, token: String, name: String, isPrivate: Bool, completion: @escaping (Result<CreateTableObject>) -> Void) {
+        Alamofire.request(ApiRouter.createTable(email: email, token: token, name: name, isPrivate: isPrivate))
+            .debugLog()
+            .responseJSONDecodable { (responce: DataResponse<CreateTableObject>) in
+            completion(responce.result)
+        }
+    }
 }
+
+
+
+
+
+
+
+
+

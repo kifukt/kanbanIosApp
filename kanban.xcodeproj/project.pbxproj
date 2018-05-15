@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B702316E208F7CEE00301D19 /* MainScreenTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */; };
+		B705EF6920A2F0A6008E4FB7 /* CreateTableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B705EF6820A2F0A6008E4FB7 /* CreateTableObject.swift */; };
 		B70CC4B2208DF30E0057182C /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70CC4B1208DF30E0057182C /* ApiClient.swift */; };
+		B7148AB720A5DF1600B421E2 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7148AB620A5DF1600B421E2 /* AccountTableViewController.swift */; };
 		B736D1CF208DE14500FC18FB /* ApiRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B736D1CE208DE14500FC18FB /* ApiRouter.swift */; };
 		B744853F208894A5002430F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744853E208894A5002430F2 /* AppDelegate.swift */; };
 		B7448544208894A5002430F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7448542208894A5002430F2 /* Main.storyboard */; };
@@ -25,7 +27,9 @@
 
 /* Begin PBXFileReference section */
 		B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenTabBarViewController.swift; sourceTree = "<group>"; };
+		B705EF6820A2F0A6008E4FB7 /* CreateTableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTableObject.swift; sourceTree = "<group>"; };
 		B70CC4B1208DF30E0057182C /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		B7148AB620A5DF1600B421E2 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		B736D1CE208DE14500FC18FB /* ApiRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRouter.swift; sourceTree = "<group>"; };
 		B744853B208894A5002430F2 /* kanban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kanban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B744853E208894A5002430F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +58,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B7148AB820A5DF6400B421E2 /* MainScreenTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */,
+				B7148AB620A5DF1600B421E2 /* AccountTableViewController.swift */,
+				B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */,
+			);
+			path = MainScreenTabBar;
+			sourceTree = "<group>";
+		};
+		B7148AB920A5DF8E00B421E2 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */,
+				B70CC4B1208DF30E0057182C /* ApiClient.swift */,
+				B736D1CE208DE14500FC18FB /* ApiRouter.swift */,
+				B7448545208894A6002430F2 /* Assets.xcassets */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		B7448532208894A5002430F2 = {
 			isa = PBXGroup;
 			children = (
@@ -76,15 +101,11 @@
 			children = (
 				B744853E208894A5002430F2 /* AppDelegate.swift */,
 				B75C4BE3208DDB870082C584 /* LoginViewController.swift */,
-				B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */,
 				B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */,
-				B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */,
 				B7448542208894A5002430F2 /* Main.storyboard */,
+				B7148AB820A5DF6400B421E2 /* MainScreenTabBar */,
 				B79EA399208DF95E005C953D /* Objects */,
-				B7448545208894A6002430F2 /* Assets.xcassets */,
-				B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */,
-				B70CC4B1208DF30E0057182C /* ApiClient.swift */,
-				B736D1CE208DE14500FC18FB /* ApiRouter.swift */,
+				B7148AB920A5DF8E00B421E2 /* Api */,
 				B7448547208894A6002430F2 /* LaunchScreen.storyboard */,
 				B744854A208894A6002430F2 /* Info.plist */,
 			);
@@ -95,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				B744855220889E4B002430F2 /* UserObject.swift */,
+				B705EF6820A2F0A6008E4FB7 /* CreateTableObject.swift */,
 				B747C7D2208BAEC70015861B /* TableObject.swift */,
 			);
 			path = Objects;
@@ -200,9 +222,11 @@
 			files = (
 				B75C4BE4208DDB870082C584 /* LoginViewController.swift in Sources */,
 				B744855320889E4B002430F2 /* UserObject.swift in Sources */,
+				B7148AB720A5DF1600B421E2 /* AccountTableViewController.swift in Sources */,
 				B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */,
 				B736D1CF208DE14500FC18FB /* ApiRouter.swift in Sources */,
 				B702316E208F7CEE00301D19 /* MainScreenTabBarViewController.swift in Sources */,
+				B705EF6920A2F0A6008E4FB7 /* CreateTableObject.swift in Sources */,
 				B747C7D3208BAEC70015861B /* TableObject.swift in Sources */,
 				B744853F208894A5002430F2 /* AppDelegate.swift in Sources */,
 				B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */,

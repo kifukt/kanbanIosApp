@@ -17,6 +17,8 @@ struct K {
         static let password = "password"
         static let email = "email"
         static let confirmation = "password_confirmation"
+        static let name = "name"
+        static let isPrivate = "is_private"
     }
 }
 
