@@ -14,6 +14,8 @@ class ListCollectionViewController: UICollectionViewController, UICollectionView
     fileprivate let reuseIdentifier = "List"
     
     var lists = [ListDatas]()
+    var cards = [CardData]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +56,33 @@ class ListCollectionViewController: UICollectionViewController, UICollectionView
         return newButton
     }
     
-    func cardButtonsGenerator() {
-        
-    }
+//    func generateCards(with listId: Int) {
+//        var cardsArray = [UIButton]()
+//        ApiClient.getCards(email: UserDefaults.standard.value(forKey: "Email") as! String,
+//                           token: UserDefaults.standard.value(forKey: "Token") as! String,
+//                           tableId: UserDefaults.standard.value(forKey: "TableId") as! Int,
+//                           listId: listId) { (result) in
+//                            switch result {
+//                            case .success(let card):
+//                                for item in card.data {
+//                                    cardsArray += [self.titleButton(withTitle: item.title)]
+//                                }
+//                                self.cards = card.data
+//                            case .failure(let error):
+//                                print(error.localizedDescription)
+//                            }
+//        }
+//        let stackView = UIStackView(arrangedSubviews: cardsArray)
+//        stackView.axis = .horizontal
+//        stackView.distribution = .fillEqually
+//        stackView.alignment = .fill
+//        stackView.spacing = 10
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
+//
+//
+//
+//
+//    }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
@@ -65,6 +91,29 @@ class ListCollectionViewController: UICollectionViewController, UICollectionView
         title.textAlignment = .center
         cell.addSubview(title)
         cell.backgroundColor = UIColor.blue
+        
+        var cardsArray = [UIButton]()
+        ApiClient.getCards(email: UserDefaults.standard.value(forKey: "Email") as! String,
+                           token: UserDefaults.standard.value(forKey: "Token") as! String,
+                           tableId: UserDefaults.standard.value(forKey: "TableId") as! Int,
+                           listId: indexPath.row + 1) { (result) in
+                            switch result {
+                            case .success(let card):
+                                for item in card.data {
+                                    cardsArray += [self.titleButton(withTitle: item.title)]
+                                }
+                                self.cards = card.data
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                            }
+        }
+        let stackView = UIStackView(arrangedSubviews: cardsArray)
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        cell.addSubview(stackView)
     
         return cell
     }

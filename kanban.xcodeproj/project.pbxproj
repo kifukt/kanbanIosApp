@@ -24,6 +24,7 @@
 		B79EA396208DF7B5005C953D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79EA395208DF7B5005C953D /* Alamofire.framework */; };
 		B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */; };
 		B7F2718120ACBB2A00CD2D47 /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2718020ACBB2A00CD2D47 /* ListCollectionViewController.swift */; };
+		B7F2718320ADB8B300CD2D47 /* CardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2718220ADB8B300CD2D47 /* CardObject.swift */; };
 		B7F9B9DB2090A4B0006381CB /* UserTablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		B79EA395208DF7B5005C953D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B7F2718020ACBB2A00CD2D47 /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
+		B7F2718220ADB8B300CD2D47 /* CardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardObject.swift; sourceTree = "<group>"; };
 		B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTablesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 				B744855220889E4B002430F2 /* UserObject.swift */,
 				B77384F220AC4034000C396C /* ListObject.swift */,
 				B705EF6820A2F0A6008E4FB7 /* CreateTableObject.swift */,
+				B7F2718220ADB8B300CD2D47 /* CardObject.swift */,
 				B747C7D2208BAEC70015861B /* TableObject.swift */,
 			);
 			path = Objects;
@@ -226,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7F2718320ADB8B300CD2D47 /* CardObject.swift in Sources */,
 				B75C4BE4208DDB870082C584 /* LoginViewController.swift in Sources */,
 				B744855320889E4B002430F2 /* UserObject.swift in Sources */,
 				B7148AB720A5DF1600B421E2 /* AccountTableViewController.swift in Sources */,

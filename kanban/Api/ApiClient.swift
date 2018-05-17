@@ -58,6 +58,14 @@ class ApiClient {
             completion(responce.result)
         }
     }
+    
+    static func getCards(email: String, token: String, tableId: Int, listId: Int, completion: @escaping (Result<CardObject>) -> Void) {
+        Alamofire.request(ApiRouter.getCards(email: email, token: token, tableId: tableId, listId: listId))
+            .debugLog()
+            .responseJSONDecodable { (responce: DataResponse<CardObject>) in
+            completion(responce.result)
+        }
+    }
 }
 
 

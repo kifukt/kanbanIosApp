@@ -32,6 +32,8 @@ enum ApiRouter: URLRequestConvertible  {
     //    case createList(email: String, token: String, listName: String)
     //    case deleteList(email: String, token: String)
     
+    case getCards(email: String, token: String, tableId: Int, listId: Int)
+    
     case register(email: String, password: String, passwordConfirmation: String)
     
     // MARK: - Method
@@ -54,7 +56,8 @@ enum ApiRouter: URLRequestConvertible  {
             //            return .post
             //        case .deleteList:
             //            return .delete
-            
+        case .getCards:
+            return .get
         case .register:
             return .post
         }
@@ -70,6 +73,8 @@ enum ApiRouter: URLRequestConvertible  {
             return "/tables"
         case .getTableLists(email: _, token: _, tableId: let tableId):
             return "/tables/" + String(tableId) + "/lists"
+        case .getCards(email: _, token: _, tableId: let tableId, listId: let listId):
+            return"/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards"
         }
     }
     
@@ -78,7 +83,7 @@ enum ApiRouter: URLRequestConvertible  {
         switch self {
         case .signIn(let email, let password):
             return [K.APIParameterKey.password: password, K.APIParameterKey.email: email]
-        case .signOut, .getUserTables, .getTableLists:
+        case .signOut, .getUserTables, .getTableLists, .getCards:
             return nil
         case .register(email: let email, password: let password, passwordConfirmation: let passwordConfirmation):
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password, K.APIParameterKey.confirmation: passwordConfirmation]
@@ -111,6 +116,10 @@ enum ApiRouter: URLRequestConvertible  {
                     HTTPHeaderField.token.rawValue: token]
         
         case .getTableLists(email: let email, token: let token, tableId: _):
+            return [HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+            
+        case .getCards(email: let email, token: let token, tableId: _, listId: _):
             return [HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]
         }
