@@ -50,6 +50,14 @@ class ApiClient {
             completion(responce.result)
         }
     }
+    
+    static func getLists(email: String, token: String, tableId: Int, completion: @escaping (Result<ListObject>) -> Void) {
+        Alamofire.request(ApiRouter.getTableLists(email: email, token: token, tableId: tableId))
+            .debugLog()
+            .responseJSONDecodable { (responce: DataResponse<ListObject>) in
+            completion(responce.result)
+        }
+    }
 }
 
 

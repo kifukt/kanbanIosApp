@@ -9,10 +9,10 @@
 import Foundation
 
 struct TableObject: Codable {
-    let data: [Datas]
+    let data: [TableDatas]
 }
 
-struct Datas: Codable {
+struct TableDatas: Codable {
     let id: Int
     let name: String
 }

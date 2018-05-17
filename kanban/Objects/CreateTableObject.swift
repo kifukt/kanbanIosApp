@@ -13,10 +13,10 @@ struct CreateTableObject: Codable {
 }
 
 struct UserObj: Codable {
-    let user: UserData
+    let user: UserDatas
 }
 
-struct UserData: Codable {
+struct UserDatas: Codable {
     let id: Int
     let name: String
 }

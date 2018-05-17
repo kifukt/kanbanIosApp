@@ -10,7 +10,7 @@ import UIKit
 
 class UserTablesTableViewController: UITableViewController {
     
-    var tables = [Datas]()
+    var tables = [TableDatas]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,7 +123,16 @@ class UserTablesTableViewController: UITableViewController {
         return cell
     }
     
-    /*
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tableId = tables[indexPath.row].id
+        UserDefaults.standard.setValue(tableId, forKey: "TableId")
+        UserDefaults.standard.synchronize()
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let listCollectionViewController = storyboard.instantiateViewController(withIdentifier: "ListCollectionView") as! ListCollectionViewController
+        self.navigationController?.pushViewController(listCollectionViewController, animated: true)
+    }
+    
+    /*k
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the specified item to be editable.

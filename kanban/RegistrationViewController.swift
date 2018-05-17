@@ -32,7 +32,7 @@ class RegistrationViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.hidesBackButton = false
         // Do any additional setup after loading the view.
     }
 

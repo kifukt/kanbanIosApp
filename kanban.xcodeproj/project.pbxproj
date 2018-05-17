@@ -20,8 +20,10 @@
 		B747C7D3208BAEC70015861B /* TableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747C7D2208BAEC70015861B /* TableObject.swift */; };
 		B75C4BE4208DDB870082C584 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE3208DDB870082C584 /* LoginViewController.swift */; };
 		B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */; };
+		B77384F320AC4034000C396C /* ListObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77384F220AC4034000C396C /* ListObject.swift */; };
 		B79EA396208DF7B5005C953D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79EA395208DF7B5005C953D /* Alamofire.framework */; };
 		B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */; };
+		B7F2718120ACBB2A00CD2D47 /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2718020ACBB2A00CD2D47 /* ListCollectionViewController.swift */; };
 		B7F9B9DB2090A4B0006381CB /* UserTablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,8 +43,10 @@
 		B747C7D2208BAEC70015861B /* TableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableObject.swift; sourceTree = "<group>"; };
 		B75C4BE3208DDB870082C584 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		B77384F220AC4034000C396C /* ListObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListObject.swift; sourceTree = "<group>"; };
 		B79EA395208DF7B5005C953D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B7F2718020ACBB2A00CD2D47 /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTablesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +65,7 @@
 		B7148AB820A5DF6400B421E2 /* MainScreenTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				B7F2718020ACBB2A00CD2D47 /* ListCollectionViewController.swift */,
 				B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */,
 				B7148AB620A5DF1600B421E2 /* AccountTableViewController.swift */,
 				B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */,
@@ -116,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				B744855220889E4B002430F2 /* UserObject.swift */,
+				B77384F220AC4034000C396C /* ListObject.swift */,
 				B705EF6820A2F0A6008E4FB7 /* CreateTableObject.swift */,
 				B747C7D2208BAEC70015861B /* TableObject.swift */,
 			);
@@ -230,7 +236,9 @@
 				B747C7D3208BAEC70015861B /* TableObject.swift in Sources */,
 				B744853F208894A5002430F2 /* AppDelegate.swift in Sources */,
 				B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */,
+				B7F2718120ACBB2A00CD2D47 /* ListCollectionViewController.swift in Sources */,
 				B70CC4B2208DF30E0057182C /* ApiClient.swift in Sources */,
+				B77384F320AC4034000C396C /* ListObject.swift in Sources */,
 				B7F9B9DB2090A4B0006381CB /* UserTablesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
