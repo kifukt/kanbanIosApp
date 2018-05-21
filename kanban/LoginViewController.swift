@@ -35,10 +35,18 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
+        let email = UserDefaults.standard.value(forKey: "Email") ?? nil
+        let token = UserDefaults.standard.value(forKey: "Token") ?? nil
         
-        
-        // Do any additional setup after loading the view.
+        if (token != nil) {
+            if (email != nil) {
+                let mainScreenViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainScreen") as! MainScreenTabBarViewController
+                self.navigationController?.pushViewController(mainScreenViewController, animated: true)
+            }
+        }
     }
+    
+        // Do any additional setup after loading the view.
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

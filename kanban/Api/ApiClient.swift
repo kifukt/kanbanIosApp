@@ -51,6 +51,12 @@ class ApiClient {
         }
     }
     
+    static func deleteTable(email: String, token: String, tableId: Int, completion: @escaping (Bool) -> Void) {
+        Alamofire.request(ApiRouter.deleteTable(email: email, token: token, tableId: tableId)).responseString { (responce: DataResponse<String>) in
+            completion(responce.result.isSuccess)
+        }
+    }
+    
     static func getLists(email: String, token: String, tableId: Int, completion: @escaping (Result<ListObject>) -> Void) {
         Alamofire.request(ApiRouter.getTableLists(email: email, token: token, tableId: tableId))
             .debugLog()

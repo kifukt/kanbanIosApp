@@ -58,6 +58,8 @@ class AccountTableViewController: UITableViewController {
             ApiClient.signOut(email: UserDefaults.standard.value(forKey: "Email") as! String,
                               token: UserDefaults.standard.value(forKey: "Token") as! String) { (result) in
                                 if result {
+                                    UserDefaults.standard.removeObject(forKey: "Email")
+                                    UserDefaults.standard.removeObject(forKey: "Token")
                                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                     let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginSignupVC")
                                     self.navigationController?.pushViewController(loginViewController, animated: true)

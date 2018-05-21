@@ -26,8 +26,8 @@ enum ApiRouter: URLRequestConvertible  {
     
     case getUserTables(email: String, token: String)
     case createTable(email: String, token: String, name: String, isPrivate: Bool)
-    //    case deleteTable(email: String, token: String)
-    //
+    case deleteTable(email: String, token: String, tableId: Int)
+    
     case getTableLists(email: String, token: String, tableId: Int)
     //    case createList(email: String, token: String, listName: String)
     //    case deleteList(email: String, token: String)
@@ -47,9 +47,9 @@ enum ApiRouter: URLRequestConvertible  {
             return .get
         case .createTable:
             return .post
-            //        case .deleteTable:
-            //            return .delete
-            //
+        case .deleteTable:
+            return .delete
+            
         case .getTableLists:
             return .get
             //        case .createList:
@@ -73,6 +73,8 @@ enum ApiRouter: URLRequestConvertible  {
             return "/tables"
         case .getTableLists(email: _, token: _, tableId: let tableId):
             return "/tables/" + String(tableId) + "/lists"
+        case .deleteTable(email: _, token: _, tableId: let tableId):
+            return "/tables/" + String(tableId)
         case .getCards(email: _, token: _, tableId: let tableId, listId: let listId):
             return"/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards"
         }
@@ -83,7 +85,7 @@ enum ApiRouter: URLRequestConvertible  {
         switch self {
         case .signIn(let email, let password):
             return [K.APIParameterKey.password: password, K.APIParameterKey.email: email]
-        case .signOut, .getUserTables, .getTableLists, .getCards:
+        case .signOut, .getUserTables, .getTableLists, .getCards, .deleteTable:
             return nil
         case .register(email: let email, password: let password, passwordConfirmation: let passwordConfirmation):
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password, K.APIParameterKey.confirmation: passwordConfirmation]
@@ -111,6 +113,11 @@ enum ApiRouter: URLRequestConvertible  {
                     HTTPHeaderField.token.rawValue: token]
             
         case .createTable(email: let email, token: let token, name: _, isPrivate: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+            
+        case .deleteTable(email: let email, token: let token, tableId: _):
             return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
                     HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]

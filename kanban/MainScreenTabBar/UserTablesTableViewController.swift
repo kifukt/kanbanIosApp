@@ -12,6 +12,19 @@ class UserTablesTableViewController: UITableViewController {
     
     var tables = [TableDatas]()
     
+    private func getTables() {
+        ApiClient.getUserTables(email: UserDefaults.standard.value(forKey: "Email") as! String,
+                                token: UserDefaults.standard.value(forKey: "Token") as! String) { (result) in
+                                    switch result {
+                                    case .success(let tablesObject):
+                                        self.tables = tablesObject.data
+                                        self.tableView.reloadData()
+                                    case .failure(let error):
+                                        print(error.localizedDescription)
+                                    }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,42 +36,36 @@ class UserTablesTableViewController: UITableViewController {
         
         self.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 1)
         
-        ApiClient.getUserTables(email: UserDefaults.standard.value(forKey: "Email") as! String,
-                                token: UserDefaults.standard.value(forKey: "Token") as! String) { (result) in
-                                    switch result {
-                                    case .success(let tablesObject):
-                                        self.tables = tablesObject.data
-                                        self.tableView.reloadData()
-                                    case .failure(let error):
-                                        print(error.localizedDescription)
-                                    }
-        }
-        
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        getTables()
+//        ApiClient.getUserTables(email: UserDefaults.standard.value(forKey: "Email") as! String,
+//                                token: UserDefaults.standard.value(forKey: "Token") as! String) { (result) in
+//                                    switch result {
+//                                    case .success(let tablesObject):
+//                                        self.tables = tablesObject.data
+//                                        self.tableView.reloadData()
+//                                    case .failure(let error):
+//                                        print(error.localizedDescription)
+//                                    }
+//        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        ApiClient.getUserTables(email: UserDefaults.standard.value(forKey: "Email") as! String,
-                                token: UserDefaults.standard.value(forKey: "Token") as! String) { (result) in
-                                    switch result {
-                                    case .success(let tablesObject):
-                                        self.tables = tablesObject.data
-                                        self.tableView.reloadData()
-                                    case .failure(let error):
-                                        print(error.localizedDescription)
-                                    }
-        }
+//        ApiClient.getUserTables(email: UserDefaults.standard.value(forKey: "Email") as! String,
+//                                token: UserDefaults.standard.value(forKey: "Token") as! String) { (result) in
+//                                    switch result {
+//                                    case .success(let tablesObject):
+//                                        self.tables = tablesObject.data
+//                                        self.tableView.reloadData()
+//                                    case .failure(let error):
+//                                        print(error.localizedDescription)
+//                                    }
+//        }
+        getTables()
         refreshControl.endRefreshing()
     }
     
@@ -66,12 +73,29 @@ class UserTablesTableViewController: UITableViewController {
         var firstTextField = UITextField()
         var isPrivate = Bool()
         
+        func sendRequest() {
+            ApiClient.createUserTable(email: UserDefaults.standard.value(forKey: "Email") as! String,
+                                      token: UserDefaults.standard.value(forKey: "Token") as! String,
+                                      name: firstTextField.text!, isPrivate: isPrivate,
+                                      completion: { (result) in
+                                        switch result {
+                                        case .success(_):
+                                            self.getTables()
+                                            self.tableView.reloadData()
+                                        case .failure(let error):
+                                            print(error.localizedDescription)
+                                        }
+            })
+        }
+        
         let isPrivateAskAlert = UIAlertController(title: "Is Private?", message: "Do you want to make private table?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (alertC) -> Void in
             isPrivate = true
+            sendRequest()
         })
         let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.destructive, handler: { (alertC) -> Void in
             isPrivate = false
+            sendRequest()
         })
         
         let alert = UIAlertController(title: "Add Table", message: "Table name:", preferredStyle: .alert)
@@ -80,19 +104,7 @@ class UserTablesTableViewController: UITableViewController {
         }
         let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { alertC -> Void in
             firstTextField = alert.textFields![0] as UITextField
-            self.present(isPrivateAskAlert, animated: true) {
-                ApiClient.createUserTable(email: UserDefaults.standard.value(forKey: "Email") as! String,
-                                          token: UserDefaults.standard.value(forKey: "Token") as! String,
-                                          name: firstTextField.text!, isPrivate: isPrivate,
-                                          completion: { (result) in
-                                            switch result {
-                                            case .success(_):
-                                                self.tableView.reloadData()
-                                            case .failure(let error):
-                                                print(error.localizedDescription)
-                                            }
-                })
-            }
+            self.present(isPrivateAskAlert, animated: true)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -126,10 +138,29 @@ class UserTablesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tableId = tables[indexPath.row].id
         UserDefaults.standard.setValue(tableId, forKey: "TableId")
-        UserDefaults.standard.synchronize()
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let listCollectionViewController = storyboard.instantiateViewController(withIdentifier: "ListCollectionView") as! ListCollectionViewController
         self.navigationController?.pushViewController(listCollectionViewController, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            ApiClient.deleteTable(email: UserDefaults.standard.value(forKey: "Email") as! String,
+                                  token: UserDefaults.standard.value(forKey: "Token") as! String,
+                                  tableId: tables[indexPath.row].id) { (result) in
+                                    if result {
+                                        self.tables.remove(at: indexPath.row)
+                                        self.getTables()
+                                        tableView.reloadData()
+                                    } else {
+                                        print("ERROR")
+                                    }
+            }
+        }
     }
     
     /*k
