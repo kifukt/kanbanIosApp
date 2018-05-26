@@ -65,6 +65,15 @@ class ApiClient {
         }
     }
     
+    static func createList(email: String, token: String, tableId: Int, name: String,
+                           completion: @escaping (Result<CreateListObject>) -> Void) {
+        Alamofire.request(ApiRouter.createTableList(email: email, token: token, tableId: tableId, listName: name))
+            .debugLog()
+            .responseJSONDecodable { (responce: DataResponse<CreateListObject>) in
+            completion(responce.result)
+        }
+    }
+    
     static func getCards(email: String, token: String, tableId: Int, listId: Int, completion: @escaping (Result<CardObject>) -> Void) {
         Alamofire.request(ApiRouter.getCards(email: email, token: token, tableId: tableId, listId: listId))
             .debugLog()

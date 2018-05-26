@@ -12,6 +12,15 @@ struct CardObject: Codable {
     let data: [CardData]
 }
 
+struct CreateCardObject: Codable {
+    let data: DataType
+}
+
+struct DataType: Codable {
+    let card: CardData
+}
+
+
 struct CardData: Codable {
     let id: Int
     let title: String

@@ -29,7 +29,7 @@ enum ApiRouter: URLRequestConvertible  {
     case deleteTable(email: String, token: String, tableId: Int)
     
     case getTableLists(email: String, token: String, tableId: Int)
-    //    case createList(email: String, token: String, listName: String)
+    case createTableList(email: String, token: String, tableId: Int, listName: String)
     //    case deleteList(email: String, token: String)
     
     case getCards(email: String, token: String, tableId: Int, listId: Int)
@@ -52,8 +52,8 @@ enum ApiRouter: URLRequestConvertible  {
             
         case .getTableLists:
             return .get
-            //        case .createList:
-            //            return .post
+        case .createTableList:
+            return .post
             //        case .deleteList:
             //            return .delete
         case .getCards:
@@ -73,6 +73,8 @@ enum ApiRouter: URLRequestConvertible  {
             return "/tables"
         case .getTableLists(email: _, token: _, tableId: let tableId):
             return "/tables/" + String(tableId) + "/lists"
+        case .createTableList(email: _, token: _, tableId: let tableId, listName: _):
+            return "/tables/" + String(tableId) + "/lists"
         case .deleteTable(email: _, token: _, tableId: let tableId):
             return "/tables/" + String(tableId)
         case .getCards(email: _, token: _, tableId: let tableId, listId: let listId):
@@ -91,6 +93,8 @@ enum ApiRouter: URLRequestConvertible  {
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password, K.APIParameterKey.confirmation: passwordConfirmation]
         case .createTable(email: _, token: _, name: let name, isPrivate: let isPrivate):
             return [K.APIParameterKey.name: name, K.APIParameterKey.isPrivate:  isPrivate]
+        case .createTableList(email: _, token: _, tableId: _, listName: let name):
+            return [K.APIParameterKey.name: name]
         }
     }
     
@@ -124,6 +128,10 @@ enum ApiRouter: URLRequestConvertible  {
         
         case .getTableLists(email: let email, token: let token, tableId: _):
             return [HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .createTableList(email: let email, token: let token, tableId: _, listName: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]
             
         case .getCards(email: let email, token: let token, tableId: _, listId: _):

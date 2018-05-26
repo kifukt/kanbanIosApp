@@ -9,10 +9,19 @@
 import Foundation
 
 struct ListObject: Codable {
-    let data: [ListDatas]
+    var data: [ListDatas]
+}
+
+struct CreateListObject: Codable {
+    var data: List
+}
+
+struct List: Codable {
+    let list: ListDatas
 }
 
 struct ListDatas: Codable {
     let id: Int
     let name: String
+    var cards: [CardData]?
 }

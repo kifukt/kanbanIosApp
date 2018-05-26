@@ -37,16 +37,6 @@ class UserTablesTableViewController: UITableViewController {
         self.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 1)
         
         getTables()
-//        ApiClient.getUserTables(email: UserDefaults.standard.value(forKey: "Email") as! String,
-//                                token: UserDefaults.standard.value(forKey: "Token") as! String) { (result) in
-//                                    switch result {
-//                                    case .success(let tablesObject):
-//                                        self.tables = tablesObject.data
-//                                        self.tableView.reloadData()
-//                                    case .failure(let error):
-//                                        print(error.localizedDescription)
-//                                    }
-//        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,16 +45,6 @@ class UserTablesTableViewController: UITableViewController {
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-//        ApiClient.getUserTables(email: UserDefaults.standard.value(forKey: "Email") as! String,
-//                                token: UserDefaults.standard.value(forKey: "Token") as! String) { (result) in
-//                                    switch result {
-//                                    case .success(let tablesObject):
-//                                        self.tables = tablesObject.data
-//                                        self.tableView.reloadData()
-//                                    case .failure(let error):
-//                                        print(error.localizedDescription)
-//                                    }
-//        }
         getTables()
         refreshControl.endRefreshing()
     }
