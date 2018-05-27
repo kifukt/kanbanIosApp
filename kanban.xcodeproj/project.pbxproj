@@ -18,12 +18,13 @@
 		B7448549208894A6002430F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7448547208894A6002430F2 /* LaunchScreen.storyboard */; };
 		B744855320889E4B002430F2 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744855220889E4B002430F2 /* UserObject.swift */; };
 		B747C7D3208BAEC70015861B /* TableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B747C7D2208BAEC70015861B /* TableObject.swift */; };
+		B75311D420BAF37F00671D1E /* ListsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75311D320BAF37F00671D1E /* ListsController.swift */; };
+		B75311D720BAF47900671D1E /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75311D620BAF47900671D1E /* ListCell.swift */; };
 		B75C4BE4208DDB870082C584 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE3208DDB870082C584 /* LoginViewController.swift */; };
 		B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */; };
 		B77384F320AC4034000C396C /* ListObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77384F220AC4034000C396C /* ListObject.swift */; };
 		B79EA396208DF7B5005C953D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79EA395208DF7B5005C953D /* Alamofire.framework */; };
 		B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */; };
-		B7F2718120ACBB2A00CD2D47 /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2718020ACBB2A00CD2D47 /* ListCollectionViewController.swift */; };
 		B7F2718320ADB8B300CD2D47 /* CardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2718220ADB8B300CD2D47 /* CardObject.swift */; };
 		B7F9B9DB2090A4B0006381CB /* UserTablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -42,12 +43,13 @@
 		B744854A208894A6002430F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B744855220889E4B002430F2 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		B747C7D2208BAEC70015861B /* TableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableObject.swift; sourceTree = "<group>"; };
+		B75311D320BAF37F00671D1E /* ListsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsController.swift; sourceTree = "<group>"; };
+		B75311D620BAF47900671D1E /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		B75C4BE3208DDB870082C584 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		B77384F220AC4034000C396C /* ListObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListObject.swift; sourceTree = "<group>"; };
 		B79EA395208DF7B5005C953D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		B7F2718020ACBB2A00CD2D47 /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		B7F2718220ADB8B300CD2D47 /* CardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardObject.swift; sourceTree = "<group>"; };
 		B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTablesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,9 +69,10 @@
 		B7148AB820A5DF6400B421E2 /* MainScreenTabBar */ = {
 			isa = PBXGroup;
 			children = (
-				B7F2718020ACBB2A00CD2D47 /* ListCollectionViewController.swift */,
 				B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */,
 				B7148AB620A5DF1600B421E2 /* AccountTableViewController.swift */,
+				B75311D620BAF47900671D1E /* ListCell.swift */,
+				B75311D320BAF37F00671D1E /* ListsController.swift */,
 				B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */,
 			);
 			path = MainScreenTabBar;
@@ -234,13 +237,14 @@
 				B744855320889E4B002430F2 /* UserObject.swift in Sources */,
 				B7148AB720A5DF1600B421E2 /* AccountTableViewController.swift in Sources */,
 				B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */,
+				B75311D720BAF47900671D1E /* ListCell.swift in Sources */,
 				B736D1CF208DE14500FC18FB /* ApiRouter.swift in Sources */,
 				B702316E208F7CEE00301D19 /* MainScreenTabBarViewController.swift in Sources */,
 				B705EF6920A2F0A6008E4FB7 /* CreateTableObject.swift in Sources */,
 				B747C7D3208BAEC70015861B /* TableObject.swift in Sources */,
 				B744853F208894A5002430F2 /* AppDelegate.swift in Sources */,
+				B75311D420BAF37F00671D1E /* ListsController.swift in Sources */,
 				B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */,
-				B7F2718120ACBB2A00CD2D47 /* ListCollectionViewController.swift in Sources */,
 				B70CC4B2208DF30E0057182C /* ApiClient.swift in Sources */,
 				B77384F320AC4034000C396C /* ListObject.swift in Sources */,
 				B7F9B9DB2090A4B0006381CB /* UserTablesTableViewController.swift in Sources */,

@@ -119,7 +119,7 @@ class UserTablesTableViewController: UITableViewController {
         let tableId = tables[indexPath.row].id
         UserDefaults.standard.setValue(tableId, forKey: "TableId")
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let listCollectionViewController = storyboard.instantiateViewController(withIdentifier: "ListCollectionView") as! ListCollectionViewController
+        let listCollectionViewController = storyboard.instantiateViewController(withIdentifier: "ListsController") as! ListsController
         self.navigationController?.pushViewController(listCollectionViewController, animated: true)
     }
     
