@@ -22,7 +22,7 @@ struct DataType: Codable {
 
 
 struct CardData: Codable {
-    let id: Int
+    let id: Int?
     let title: String
-    let description: String
+    let description: String?
 }

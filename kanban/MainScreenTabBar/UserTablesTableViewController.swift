@@ -119,8 +119,8 @@ class UserTablesTableViewController: UITableViewController {
         let tableId = tables[indexPath.row].id
         UserDefaults.standard.setValue(tableId, forKey: "TableId")
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let listCollectionViewController = storyboard.instantiateViewController(withIdentifier: "ListCollectionView") as! ListCollectionViewController
-        self.navigationController?.pushViewController(listCollectionViewController, animated: true)
+        let listsController = storyboard.instantiateViewController(withIdentifier: "ListsController") as! ListsController
+        self.navigationController?.pushViewController(listsController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
