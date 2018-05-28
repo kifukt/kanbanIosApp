@@ -17,7 +17,7 @@ struct CreateCardObject: Codable {
 }
 
 struct DataType: Codable {
-    let card: CardData
+    let user: CardData
 }
 
 

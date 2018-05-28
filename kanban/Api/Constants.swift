@@ -19,6 +19,8 @@ struct K {
         static let confirmation = "password_confirmation"
         static let name = "name"
         static let isPrivate = "is_private"
+        static let title = "title"
+        static let description = "description"
     }
 }
 

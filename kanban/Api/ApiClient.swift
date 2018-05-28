@@ -81,6 +81,14 @@ class ApiClient {
             completion(responce.result)
         }
     }
+    static func createCard(email: String, token: String, tableId: Int, listId: Int, title: String, description: String, completion: @escaping (Result<CreateCardObject>) -> Void) {
+        Alamofire.request(ApiRouter.createCard(email: email, token: token, tableId: tableId, listId: listId, title: title, description: description))
+            .debugLog()
+            .responseJSONDecodable { (responce: DataResponse<CreateCardObject>) in
+                completion(responce.result)
+        }
+    }
+    
 }
 
 

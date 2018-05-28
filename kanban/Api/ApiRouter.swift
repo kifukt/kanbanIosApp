@@ -33,6 +33,7 @@ enum ApiRouter: URLRequestConvertible  {
     //    case deleteList(email: String, token: String)
     
     case getCards(email: String, token: String, tableId: Int, listId: Int)
+    case createCard(email: String, token: String, tableId: Int, listId: Int, title: String, description: String)
     
     case register(email: String, password: String, passwordConfirmation: String)
     
@@ -58,6 +59,9 @@ enum ApiRouter: URLRequestConvertible  {
             //            return .delete
         case .getCards:
             return .get
+        case .createCard:
+            return .post
+            
         case .register:
             return .post
         }
@@ -78,7 +82,9 @@ enum ApiRouter: URLRequestConvertible  {
         case .deleteTable(email: _, token: _, tableId: let tableId):
             return "/tables/" + String(tableId)
         case .getCards(email: _, token: _, tableId: let tableId, listId: let listId):
-            return"/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards"
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards"
+        case .createCard(email: _, token: _, tableId: let tableId, listId: let listId, title: _, description: _):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards"
         }
     }
     
@@ -95,6 +101,8 @@ enum ApiRouter: URLRequestConvertible  {
             return [K.APIParameterKey.name: name, K.APIParameterKey.isPrivate:  isPrivate]
         case .createTableList(email: _, token: _, tableId: _, listName: let name):
             return [K.APIParameterKey.name: name]
+        case .createCard(email: _, token: _, tableId: _, listId: _, title: let title, description: let description):
+            return [K.APIParameterKey.title: title, K.APIParameterKey.description: description]
         }
     }
     
@@ -136,6 +144,10 @@ enum ApiRouter: URLRequestConvertible  {
             
         case .getCards(email: let email, token: let token, tableId: _, listId: _):
             return [HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .createCard(email: let email, token: let token, tableId: _, listId: _, title: _, description: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]
         }
     }
