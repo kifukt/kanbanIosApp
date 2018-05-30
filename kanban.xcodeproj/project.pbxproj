@@ -24,6 +24,7 @@
 		B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */; };
 		B77384F320AC4034000C396C /* ListObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77384F220AC4034000C396C /* ListObject.swift */; };
 		B79EA396208DF7B5005C953D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79EA395208DF7B5005C953D /* Alamofire.framework */; };
+		B7A1572620BC3A18008FC2FA /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A1572520BC3A18008FC2FA /* CardController.swift */; };
 		B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */; };
 		B7F2718320ADB8B300CD2D47 /* CardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2718220ADB8B300CD2D47 /* CardObject.swift */; };
 		B7F9B9DB2090A4B0006381CB /* UserTablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */; };
@@ -49,6 +50,7 @@
 		B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		B77384F220AC4034000C396C /* ListObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListObject.swift; sourceTree = "<group>"; };
 		B79EA395208DF7B5005C953D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		B7A1572520BC3A18008FC2FA /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B7F2718220ADB8B300CD2D47 /* CardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardObject.swift; sourceTree = "<group>"; };
 		B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTablesTableViewController.swift; sourceTree = "<group>"; };
@@ -70,9 +72,10 @@
 			isa = PBXGroup;
 			children = (
 				B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */,
-				B7148AB620A5DF1600B421E2 /* AccountTableViewController.swift */,
-				B75311D620BAF47900671D1E /* ListCell.swift */,
 				B75311D320BAF37F00671D1E /* ListsController.swift */,
+				B75311D620BAF47900671D1E /* ListCell.swift */,
+				B7A1572520BC3A18008FC2FA /* CardController.swift */,
+				B7148AB620A5DF1600B421E2 /* AccountTableViewController.swift */,
 				B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */,
 			);
 			path = MainScreenTabBar;
@@ -248,6 +251,7 @@
 				B70CC4B2208DF30E0057182C /* ApiClient.swift in Sources */,
 				B77384F320AC4034000C396C /* ListObject.swift in Sources */,
 				B7F9B9DB2090A4B0006381CB /* UserTablesTableViewController.swift in Sources */,
+				B7A1572620BC3A18008FC2FA /* CardController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -89,6 +89,12 @@ class ApiClient {
         }
     }
     
+    static func deleteCard(email: String, token: String, tableId: Int, listId: Int, cardId: Int, completion: @escaping (Bool) -> Void) {
+        Alamofire.request(ApiRouter.deleteCard(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId)).responseString { (responce:DataResponse<String>) in
+            completion(responce.result.isSuccess)
+        }
+    }
+    
 }
 
 
