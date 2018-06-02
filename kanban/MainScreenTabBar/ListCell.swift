@@ -8,11 +8,25 @@
 
 import UIKit
 
+protocol OptionButtonsDelegate{
+    func deleteTapped(at index:IndexPath)
+}
+
 class ListCell: UICollectionViewCell {
+    
+    @IBOutlet weak var deleteButton: UIButton!
+    
+    @IBAction func deleteListAction(_ sender: UIButton) {
+        self.delegate?.deleteTapped(at: indexPath)
+    }
+    var delegate: OptionButtonsDelegate!
+    
+    var indexPath:IndexPath!
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var listName: UILabel!
+    
     func setTableViewDataSourceDelegate<D: UITableViewDataSource & UITableViewDelegate>(dataSourceDelegate: D, forRow row: Int) {
         tableView.delegate = dataSourceDelegate
         tableView.dataSource = dataSourceDelegate

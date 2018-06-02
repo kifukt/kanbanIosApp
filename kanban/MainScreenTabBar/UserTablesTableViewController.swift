@@ -30,7 +30,7 @@ class UserTablesTableViewController: UITableViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                                  target: self, action: #selector(addTable))
-        
+        self.navigationItem.title = "Tables"
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         

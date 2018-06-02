@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardController: UIViewController {
+class CardController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var cardName: UILabel!
     
@@ -22,8 +22,10 @@ class CardController: UIViewController {
         let okAction = UIAlertAction(title: "YES", style: .default) { (alertC) in
             ApiClient.deleteCard(email: self.email, token: self.token, tableId: self.tableId, listId: self.listId, cardId: self.card.id!) { (result) in
                 if result {
-                    let listsController = self.storyboard?.instantiateViewController(withIdentifier: "ListsController") as! ListsController
-                    self.navigationController?.pushViewController(listsController, animated: true)
+                    DispatchQueue.main.async {
+                        let listsController = self.storyboard?.instantiateViewController(withIdentifier: "ListsController") as! ListsController
+                        self.navigationController?.pushViewController(listsController, animated: true)
+                    }
                 } else {
                     let alert = UIAlertController(title: "OUPS!", message: "Something goes wrong =(", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -47,36 +49,43 @@ class CardController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         
+        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        loadingIndicator.startAnimating();
-        
+        loadingIndicator.startAnimating()
         alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
+        print("Dupa 2")
+//        self.present(alert, animated: true, completion: nil)
         
         email = UserDefaults.standard.value(forKey: "Email") as! String
         token = UserDefaults.standard.value(forKey: "Token") as! String
         tableId = UserDefaults.standard.value(forKey: "TableId") as! Int
         listId = UserDefaults.standard.value(forKey: "ListId") as! Int
         cardId = UserDefaults.standard.value(forKey: "CardId") as! Int
-        print(self.cardId)
+        view.addGestureRecognizer(tap)
+        
         ApiClient.getCards(email: self.email, token: self.token, tableId: self.tableId, listId: self.listId) { (result) in
             switch result {
             case .success(let cards):
                 self.card = cards.getCard(withId: self.cardId)
-                print(self.card)
                 self.cardName.text = self.card.title
                 self.cardDescription.text = (self.card.description?.isEmpty ?? true) ? "Write a decription here" : self.card.description
                 self.dismiss(animated: false, completion: nil)
+                
             case .failure(let error):
                 print(error.localizedDescription)
+                self.dismiss(animated: false, completion: nil)
             }
         }
         
         
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {

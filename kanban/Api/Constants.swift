@@ -21,6 +21,8 @@ struct K {
         static let isPrivate = "is_private"
         static let title = "title"
         static let description = "description"
+        static let leaderId = "leader_id"
+        static let userId = "user_id"
     }
 }
 

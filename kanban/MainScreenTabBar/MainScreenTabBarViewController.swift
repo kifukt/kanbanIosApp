@@ -15,8 +15,6 @@ class MainScreenTabBarViewController: UITabBarController {
         self.navigationItem.hidesBackButton = true
         
         self.navigationController?.isNavigationBarHidden = true
-        
-        
         // Do any additional setup after loading the view.
     }
 

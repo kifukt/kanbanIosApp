@@ -30,11 +30,20 @@ enum ApiRouter: URLRequestConvertible  {
     
     case getTableLists(email: String, token: String, tableId: Int)
     case createTableList(email: String, token: String, tableId: Int, listName: String)
-    //    case deleteList(email: String, token: String)
+    case deleteList(email: String, token: String, tableId: Int, listId: Int)
     
     case getCards(email: String, token: String, tableId: Int, listId: Int)
     case createCard(email: String, token: String, tableId: Int, listId: Int, title: String, description: String)
     case deleteCard(email: String, token: String, tableId: Int, listId: Int, cardId: Int)
+    
+    case getUserGroups(email: String, token: String)
+    case createGroup(email: String, token: String, groupName: String)
+    case deleteGroup(email: String, token: String, groupId: Int)
+    case changeLeader(email: String, token: String, groupId: Int, leaderId: Int)
+    case addUserToGroup(email: String, token: String, groupId: Int, userEmail: String)
+    case showGroup(email: String, token: String, groupId: Int)
+    case removeUserFromGroup(email: String, token: String, groupId: Int, userId: Int)
+    
     
     case register(email: String, password: String, passwordConfirmation: String)
     
@@ -45,6 +54,7 @@ enum ApiRouter: URLRequestConvertible  {
             return .post
         case .signOut:
             return .delete
+            
         case .getUserTables:
             return .get
         case .createTable:
@@ -56,13 +66,29 @@ enum ApiRouter: URLRequestConvertible  {
             return .get
         case .createTableList:
             return .post
-            //        case .deleteList:
-            //            return .delete
+        case .deleteList:
+            return .delete
+            
         case .getCards:
             return .get
         case .createCard:
             return .post
         case .deleteCard:
+            return .delete
+            
+        case .getUserGroups:
+            return .get
+        case .createGroup:
+            return .post
+        case .deleteGroup:
+            return .delete
+        case .changeLeader:
+            return .post
+        case .addUserToGroup:
+            return .post
+        case .showGroup:
+            return .get
+        case .removeUserFromGroup:
             return .delete
             
         case .register:
@@ -82,6 +108,8 @@ enum ApiRouter: URLRequestConvertible  {
             return "/tables/" + String(tableId) + "/lists"
         case .createTableList(email: _, token: _, tableId: let tableId, listName: _):
             return "/tables/" + String(tableId) + "/lists"
+        case .deleteList(email: _, token: _, tableId: let tableId, listId: let listId):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId)
         case .deleteTable(email: _, token: _, tableId: let tableId):
             return "/tables/" + String(tableId)
         case .getCards(email: _, token: _, tableId: let tableId, listId: let listId):
@@ -90,6 +118,18 @@ enum ApiRouter: URLRequestConvertible  {
             return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards"
         case .deleteCard(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId):
             return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId)
+        case .getUserGroups, .createGroup:
+            return "/groups"
+        case .deleteGroup(email: _, token: _, groupId: let groupId):
+            return "/groups/" + String(groupId)
+        case .changeLeader(email: _, token: _, groupId: let groupId, leaderId: _):
+            return "/groups/" + String(groupId) + "/change_leader"
+        case .addUserToGroup(email: _, token: _, groupId: let groupId, userEmail: _):
+            return "/groups/" + String(groupId) + "/add_user_to_group"
+        case .showGroup(email: _, token: _, groupId: let groupId):
+            return "/groups/" + String(groupId)
+        case .removeUserFromGroup(email: _, token: _, groupId: let groupId, userId: _):
+            return "/groups/" + String(groupId) + "/remove_user_from_group"
         }
     }
     
@@ -98,7 +138,8 @@ enum ApiRouter: URLRequestConvertible  {
         switch self {
         case .signIn(let email, let password):
             return [K.APIParameterKey.password: password, K.APIParameterKey.email: email]
-        case .signOut, .getUserTables, .getTableLists, .getCards, .deleteTable, .deleteCard:
+        case .signOut, .getUserTables, .getTableLists, .getCards, .getUserGroups, .showGroup,
+             .deleteTable, .deleteCard, .deleteList, .deleteGroup:
             return nil
         case .register(email: let email, password: let password, passwordConfirmation: let passwordConfirmation):
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password, K.APIParameterKey.confirmation: passwordConfirmation]
@@ -108,6 +149,14 @@ enum ApiRouter: URLRequestConvertible  {
             return [K.APIParameterKey.name: name]
         case .createCard(email: _, token: _, tableId: _, listId: _, title: let title, description: let description):
             return [K.APIParameterKey.title: title, K.APIParameterKey.description: description]
+        case .createGroup(email: _, token: _, groupName: let groupName):
+            return [K.APIParameterKey.name: groupName]
+        case .changeLeader(email: _, token: _, groupId: _, leaderId: let leaderId):
+            return [K.APIParameterKey.leaderId: leaderId]
+        case .addUserToGroup(email: _, token: _, groupId: _, userEmail: let userEmail):
+            return [K.APIParameterKey.email: userEmail]
+        case .removeUserFromGroup(email: _, token: _, groupId: _, userId: let userId):
+            return [K.APIParameterKey.userId: userId]
         }
     }
     
@@ -146,6 +195,10 @@ enum ApiRouter: URLRequestConvertible  {
             return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
                     HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]
+        case .deleteList(email: let email, token: let token , tableId: _, listId: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
             
         case .getCards(email: let email, token: let token, tableId: _, listId: _):
             return [HTTPHeaderField.email.rawValue: email,
@@ -156,6 +209,32 @@ enum ApiRouter: URLRequestConvertible  {
                     HTTPHeaderField.token.rawValue: token]
         case .deleteCard(email: let email, token: let token, tableId: _, listId: _, cardId: _):
             return [HTTPHeaderField.acceptType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+            
+        case .getUserGroups(email: let email, token: let token):
+            return [HTTPHeaderField.email.rawValue: email, HTTPHeaderField.token.rawValue: token]
+        case .createGroup(email: let email, token: let token, groupName: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .deleteGroup(email: let email, token: let token, groupId: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .changeLeader(email: let email, token: let token, groupId: _, leaderId: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .addUserToGroup(email: let email, token: let token, groupId: _, userEmail: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .showGroup(email: let email, token: let token, groupId: _):
+            return [HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .removeUserFromGroup(email: let email, token: let token, groupId: _, userId: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
                     HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]
         }
