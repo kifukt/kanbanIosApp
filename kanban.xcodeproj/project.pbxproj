@@ -15,6 +15,7 @@
 		B73F643C20C2BA020011476D /* AlamofireNetworkActivityIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B73F643B20C2BA020011476D /* AlamofireNetworkActivityIndicator.framework */; };
 		B73F643E20C2CD070011476D /* GroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73F643D20C2CD070011476D /* GroupsController.swift */; };
 		B73F644020C2D3C80011476D /* GroupObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73F643F20C2D3C80011476D /* GroupObject.swift */; };
+		B73F644220C2F1C90011476D /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73F644120C2F1C90011476D /* GroupViewController.swift */; };
 		B744853F208894A5002430F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B744853E208894A5002430F2 /* AppDelegate.swift */; };
 		B7448544208894A5002430F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7448542208894A5002430F2 /* Main.storyboard */; };
 		B7448546208894A6002430F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7448545208894A6002430F2 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		B73F643B20C2BA020011476D /* AlamofireNetworkActivityIndicator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireNetworkActivityIndicator.framework; path = Carthage/Build/iOS/AlamofireNetworkActivityIndicator.framework; sourceTree = "<group>"; };
 		B73F643D20C2CD070011476D /* GroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsController.swift; sourceTree = "<group>"; };
 		B73F643F20C2D3C80011476D /* GroupObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupObject.swift; sourceTree = "<group>"; };
+		B73F644120C2F1C90011476D /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		B744853B208894A5002430F2 /* kanban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kanban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B744853E208894A5002430F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7448543208894A5002430F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -79,12 +81,9 @@
 			isa = PBXGroup;
 			children = (
 				B702316D208F7CEE00301D19 /* MainScreenTabBarViewController.swift */,
-				B75311D320BAF37F00671D1E /* ListsController.swift */,
-				B75311D620BAF47900671D1E /* ListCell.swift */,
-				B73F643D20C2CD070011476D /* GroupsController.swift */,
-				B7A1572520BC3A18008FC2FA /* CardController.swift */,
 				B7148AB620A5DF1600B421E2 /* AccountTableViewController.swift */,
-				B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */,
+				B73F644320C2F1EB0011476D /* Tables */,
+				B73F644420C2F1FF0011476D /* Groups */,
 			);
 			path = MainScreenTabBar;
 			sourceTree = "<group>";
@@ -98,6 +97,26 @@
 				B7448545208894A6002430F2 /* Assets.xcassets */,
 			);
 			path = Api;
+			sourceTree = "<group>";
+		};
+		B73F644320C2F1EB0011476D /* Tables */ = {
+			isa = PBXGroup;
+			children = (
+				B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */,
+				B75311D320BAF37F00671D1E /* ListsController.swift */,
+				B75311D620BAF47900671D1E /* ListCell.swift */,
+				B7A1572520BC3A18008FC2FA /* CardController.swift */,
+			);
+			path = Tables;
+			sourceTree = "<group>";
+		};
+		B73F644420C2F1FF0011476D /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				B73F643D20C2CD070011476D /* GroupsController.swift */,
+				B73F644120C2F1C90011476D /* GroupViewController.swift */,
+			);
+			path = Groups;
 			sourceTree = "<group>";
 		};
 		B7448532208894A5002430F2 = {
@@ -250,6 +269,7 @@
 				B75C4BE4208DDB870082C584 /* LoginViewController.swift in Sources */,
 				B744855320889E4B002430F2 /* UserObject.swift in Sources */,
 				B7148AB720A5DF1600B421E2 /* AccountTableViewController.swift in Sources */,
+				B73F644220C2F1C90011476D /* GroupViewController.swift in Sources */,
 				B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */,
 				B75311D720BAF47900671D1E /* ListCell.swift in Sources */,
 				B736D1CF208DE14500FC18FB /* ApiRouter.swift in Sources */,

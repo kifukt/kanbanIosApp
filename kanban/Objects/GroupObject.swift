@@ -36,22 +36,22 @@ struct ChangeLeaderGroup: Codable {
 }
 //Add user to group, Show Group, Remove User from Group
 struct GroupDataObject: Codable {
-    let data: GroupObject
+    var data: GroupObject
 }
 
 struct GroupObject: Codable {
-    let group: UserData
+    var group: UserDataGroup
 }
 
-struct UserData: Codable {
+struct UserDataGroup: Codable {
     let id: Int
-    let name: String
-    let members: [Member]
-    let leader: Member?
+    var name: String
+    var members: [Members]
+    var leader: Members?
 }
 
-struct Member: Codable {
-    let id: String
+struct Members: Codable {
+    let id: Int
     let email: String
 }
 

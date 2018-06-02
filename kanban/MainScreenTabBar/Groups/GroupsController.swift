@@ -20,6 +20,12 @@ class GroupsController: UITableViewController {
         token = UserDefaults.standard.value(forKey: "Token") as! String
         self.navigationItem.title = "Groups"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addGroup))
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        getGroups()
+    }
+    
+    func getGroups() {
         ApiClient.getUserGroups(email: self.email, token: self.token) { (result) in
             switch result {
             case .success(let groups):
@@ -29,6 +35,11 @@ class GroupsController: UITableViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        getGroups()
+        refreshControl.endRefreshing()
     }
     
     @objc func addGroup() {
@@ -75,13 +86,40 @@ class GroupsController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath)
         cell.textLabel?.text = self.groups[indexPath.row].name
+        cell.textLabel?.textAlignment = NSTextAlignment.center
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UserDefaults.standard.setValue(self.groups[indexPath.row].id, forKey: "GroupId")
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let groupViewController = storyboard.instantiateViewController(withIdentifier: "GroupViewController") as! GroupViewController
+        self.navigationController?.pushViewController(groupViewController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.green.withAlphaComponent(CGFloat(self.groups.count == 0 ? 0 : (0.6 / Double(self.groups.count)) * Double(indexPath.row + 1)))
 
     }
+    
+    //Deleting Groups
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            ApiClient.deleteGroup(email: self.email, token: self.token, groupId: self.groups[indexPath.row].id) { (result) in
+                if result {
+                    self.groups.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                } else {
+                    print("deleting error")
+                }
+            }
+        }
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
