@@ -34,8 +34,6 @@ class UserTablesTableViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         
-        self.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 1)
-        
         getTables()
     }
     

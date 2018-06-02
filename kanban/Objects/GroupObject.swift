@@ -24,7 +24,7 @@ struct CreateGroupObject: Codable {
 }
 
 struct UserGroups: Codable {
-    let user: GroupDatas
+    let group: GroupDatas
 }
 //Change Leader
 struct ChangeLeaderObject: Codable {
