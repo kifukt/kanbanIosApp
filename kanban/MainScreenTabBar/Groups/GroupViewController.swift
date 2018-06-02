@@ -23,11 +23,36 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBAction func changeLeader(_ sender: UIButton) {
     }
     
+    @IBOutlet weak var usersLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var addUserButton: UIButton!
     @IBAction func addUserToGroup(_ sender: UIButton) {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add user", message: "Type a user's e-mail", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "Save", style: .destructive) { (alertC) in
+            textField = alert.textFields![0] as UITextField
+            ApiClient.addUserToGroup(email: self.email, token: self.token, groupId: self.groupId, userEmail: textField.text!, completion: { (result) in
+                switch result {
+                case .success(let user):
+                    self.group = user.data.group
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            })
+        }
+        
+        alert.addTextField { (textField: UITextField) in
+            textField.placeholder = "User e-mail"
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(saveAction)
+        present(alert, animated: true)
     }
     
     
@@ -38,9 +63,13 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
             case .success(let group):
                 self.group = group.data.group
                 print(group)
-                self.groupName.text = self.group?.name
+                self.changeLeaderButton.setTitle("Change leader", for: .normal)
+                self.addUserButton.setTitle("Add User", for: UIControlState.normal)
+                self.groupName.text = "Group: " + (self.group?.name)!
                 self.groupName.textAlignment = NSTextAlignment.center
-                self.leaderName.text = self.group?.leader?.email
+                self.leaderName.text = "Leader: " + (self.group?.leader?.email)!
+                self.usersLabel.text = "Users:"
+                self.usersLabel.textAlignment = NSTextAlignment.center
                 self.leaderName.textAlignment = NSTextAlignment.center
                 self.view.reloadInputViews()
                 self.tableView.reloadData()
@@ -76,8 +105,29 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupUser", for: indexPath)
+        
         cell.textLabel?.text = self.group?.members[indexPath.row].email
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            ApiClient.removeUserFromGroup(email: self.email, token: self.token, groupId: self.groupId, userId: (self.group?.members[indexPath.row].id)!) { (result) in
+                switch result {
+                case .success(_):
+                    self.group?.members.remove(at: indexPath.row)
+                    DispatchQueue.main.async {
+                        tableView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 
 }

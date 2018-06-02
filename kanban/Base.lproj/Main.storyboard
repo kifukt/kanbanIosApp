@@ -443,13 +443,18 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYY-nr-P92">
                                         <rect key="frame" x="0.0" y="80" width="375" height="40"/>
-                                        <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="changeLeader:" destination="ucI-91-sxy" eventType="touchUpInside" id="tzk-Zp-1z5"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxl-Fk-fmE">
+                                        <rect key="frame" x="0.0" y="120" width="375" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EMM-Zl-AZo">
-                                        <rect key="frame" x="0.0" y="120" width="375" height="487"/>
+                                        <rect key="frame" x="0.0" y="160" width="375" height="447"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupUser" id="JaS-vI-rd6">
@@ -468,16 +473,20 @@
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXx-zk-tol">
                                         <rect key="frame" x="0.0" y="607" width="375" height="40"/>
-                                        <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="addUserToGroup:" destination="ucI-91-sxy" eventType="touchUpInside" id="oEE-g5-fGc"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="RXx-zk-tol" firstAttribute="leading" secondItem="YYD-kJ-gr4" secondAttribute="leading" id="Ew4-PH-ni9"/>
                                     <constraint firstItem="8SS-hb-PUc" firstAttribute="height" secondItem="Tih-F3-tgj" secondAttribute="height" id="T3H-ay-THi"/>
+                                    <constraint firstItem="Lxl-Fk-fmE" firstAttribute="height" secondItem="ZYY-nr-P92" secondAttribute="height" id="WzY-fd-Jb6"/>
+                                    <constraint firstAttribute="trailing" secondItem="RXx-zk-tol" secondAttribute="trailing" id="YIw-xf-ac7"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZYY-nr-P92" secondAttribute="trailing" id="rsP-LU-SUW"/>
                                     <constraint firstItem="RXx-zk-tol" firstAttribute="height" secondItem="ZYY-nr-P92" secondAttribute="height" id="uMi-NF-ibf"/>
                                     <constraint firstItem="ZYY-nr-P92" firstAttribute="height" secondItem="8SS-hb-PUc" secondAttribute="height" id="uvW-s6-oMp"/>
+                                    <constraint firstItem="ZYY-nr-P92" firstAttribute="leading" secondItem="YYD-kJ-gr4" secondAttribute="leading" id="zpu-i0-e4w"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -496,6 +505,7 @@
                         <outlet property="groupName" destination="Tih-F3-tgj" id="A6p-Tk-RlU"/>
                         <outlet property="leaderName" destination="8SS-hb-PUc" id="lwm-z5-h4h"/>
                         <outlet property="tableView" destination="EMM-Zl-AZo" id="bVx-Qh-KDB"/>
+                        <outlet property="usersLabel" destination="Lxl-Fk-fmE" id="aJr-zm-8RM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xnx-Md-4LJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
