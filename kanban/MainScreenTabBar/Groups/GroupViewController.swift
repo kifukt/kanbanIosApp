@@ -15,13 +15,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var groupId = Int()
     var group: UserDataGroup?
     
-    @IBOutlet weak var groupName: UILabel!
-    
     @IBOutlet weak var leaderName: UILabel!
-    
-    @IBOutlet weak var changeLeaderButton: UIButton!
-    @IBAction func changeLeader(_ sender: UIButton) {
-    }
     
     @IBOutlet weak var usersLabel: UILabel!
     
@@ -57,16 +51,13 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     
-    func getGroupInfo() {
+    private func getGroupInfo() {
         ApiClient.showGroup(email: self.email, token: self.token, groupId: self.groupId) { (result) in
             switch result {
             case .success(let group):
                 self.group = group.data.group
-                print(group)
-                self.changeLeaderButton.setTitle("Change leader", for: .normal)
                 self.addUserButton.setTitle("Add User", for: UIControlState.normal)
-                self.groupName.text = "Group: " + (self.group?.name)!
-                self.groupName.textAlignment = NSTextAlignment.center
+                self.navigationItem.title = self.group?.name
                 self.leaderName.text = "Leader: " + (self.group?.leader?.email)!
                 self.usersLabel.text = "Users:"
                 self.usersLabel.textAlignment = NSTextAlignment.center
@@ -84,7 +75,7 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         email = UserDefaults.standard.value(forKey: "Email") as! String
         token = UserDefaults.standard.value(forKey: "Token") as! String
         groupId = UserDefaults.standard.value(forKey: "GroupId") as! Int
-        getGroupInfo()
+        self.getGroupInfo()
 
     }
 
@@ -108,6 +99,24 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.textLabel?.text = self.group?.members[indexPath.row].email
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Set Leader?", message: "Set this user as Leader?", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "YES", style: .destructive) { (alertC) in
+            ApiClient.changeLeader(email: self.email, token: self.token, groupId: self.groupId, leaderId: (self.group?.members[indexPath.row].id)!, completion: { (result) in
+                switch result {
+                case .success(_):
+                    self.getGroupInfo()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            })
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(saveAction)
+        present(alert, animated: true)
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

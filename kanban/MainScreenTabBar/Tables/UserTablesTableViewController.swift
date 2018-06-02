@@ -140,4 +140,10 @@ class UserTablesTableViewController: UITableViewController {
             }
         }
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.green.withAlphaComponent(CGFloat(self.tables.count == 0 ? 0 : (0.6 / Double(self.tables.count)) * Double(indexPath.row + 1)))
+        
+    }
+    
 }
