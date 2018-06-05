@@ -1,0 +1,63 @@
+
+/* Class = "UILabel"; text = "Card Name"; ObjectID = "3cL-gE-qVr"; */
+"3cL-gE-qVr.text" = "Card Name";
+
+/* Class = "UITextField"; placeholder = "confirm Password"; ObjectID = "5eu-Xq-QB3"; */
+"5eu-Xq-QB3.placeholder" = "confirm Password";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "63d-Ze-adv"; */
+"63d-Ze-adv.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "8SS-hb-PUc"; */
+"8SS-hb-PUc.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "AM2-Va-DP6"; */
+"AM2-Va-DP6.placeholder" = "Password";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "DQt-JB-Uwh"; */
+"DQt-JB-Uwh.placeholder" = "password";
+
+/* Class = "UIButton"; normalTitle = "❌"; ObjectID = "EhW-gG-GwD"; */
+"EhW-gG-GwD.normalTitle" = "❌";
+
+/* Class = "UILabel"; text = "Log In"; ObjectID = "IAw-lz-6V8"; */
+"IAw-lz-6V8.text" = "Log In";
+
+/* Class = "UITabBarItem"; title = "Account"; ObjectID = "JEo-t5-0Kv"; */
+"JEo-t5-0Kv.title" = "Account";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Lxl-Fk-fmE"; */
+"Lxl-Fk-fmE.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "PS9-Ln-KpL"; */
+"PS9-Ln-KpL.normalTitle" = "Log In";
+
+/* Class = "UIButton"; normalTitle = "Don't have an account yet?"; ObjectID = "SFL-70-KIa"; */
+"SFL-70-KIa.normalTitle" = "Don't have an account yet?";
+
+/* Class = "UITabBarItem"; title = "Tables"; ObjectID = "iAQ-MT-e1I"; */
+"iAQ-MT-e1I.title" = "Tables";
+
+/* Class = "UITabBarItem"; title = "Groups"; ObjectID = "iNi-qS-U89"; */
+"iNi-qS-U89.title" = "Groups";
+
+/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "ioh-Zy-hgV"; */
+"ioh-Zy-hgV.normalTitle" = "Edit";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "j2x-sY-xeF"; */
+"j2x-sY-xeF.normalTitle" = "Delete";
+
+/* Class = "UIButton"; normalTitle = "Register"; ObjectID = "lzz-ut-OpL"; */
+"lzz-ut-OpL.normalTitle" = "Register";
+
+/* Class = "UITextField"; placeholder = "e-mail"; ObjectID = "m81-eu-rQ8"; */
+"m81-eu-rQ8.placeholder" = "e-mail";
+
+/* Class = "UILabel"; text = "Registration"; ObjectID = "qDX-bn-L09"; */
+"qDX-bn-L09.text" = "Registration";
+
+/* Class = "UITextView"; text = "Card description"; ObjectID = "xc3-8V-q0C"; */
+"xc3-8V-q0C.text" = "Card description";
+
+/* Class = "UITextField"; placeholder = "Login"; ObjectID = "yj2-xi-zp4"; */
+"yj2-xi-zp4.placeholder" = "Login";

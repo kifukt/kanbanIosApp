@@ -10,27 +10,46 @@ import UIKit
 
 class UserTablesTableViewController: UITableViewController {
     
-    var tables = [TableDatas]()
+    var tables = [[TableDatas](),[TableDatas]()]
+    var sectionTitles = ["Private", "Public"]
+    var backgroundColor = AppColor.beige
+    var cellColor = AppColor.orange
+    var email = String()
+    var token = String()
+    
     
     private func getTables() {
-        ApiClient.getUserTables(email: UserDefaults.standard.value(forKey: "Email") as! String,
-                                token: UserDefaults.standard.value(forKey: "Token") as! String) { (result) in
-                                    switch result {
-                                    case .success(let tablesObject):
-                                        self.tables = tablesObject.data
-                                        self.tableView.reloadData()
-                                    case .failure(let error):
-                                        print(error.localizedDescription)
-                                    }
+        ApiClient.getUserTables(email: email, token: token) { (result) in
+            switch result {
+            case .success(let tablesObject):
+                self.tables[0].removeAll()
+                self.tables[1].removeAll()
+                for table in tablesObject.data {
+                    if table.is_private {
+                        self.tables[0].append(table)
+                    } else {
+                        self.tables[1].append(table)
+                    }
+                }
+                print(self.tables)
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableView.backgroundColor = backgroundColor
+        self.tabBarController?.tabBar.isHidden = false
+        email = UserDefaults.standard.value(forKey: "Email") as! String
+        token = UserDefaults.standard.value(forKey: "Token") as! String
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                                  target: self, action: #selector(addTable))
+        self.tableView.separatorStyle = .none
         self.navigationItem.title = "Tables"
+        tableView.backgroundColor = backgroundColor
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         
@@ -50,26 +69,42 @@ class UserTablesTableViewController: UITableViewController {
     @objc func addTable() {
         var firstTextField = UITextField()
         var isPrivate = Bool()
-        
+        let chooseGroupAletr = UIAlertController(title: "Choose group", message: nil, preferredStyle: .actionSheet)
         func sendRequest() {
-            ApiClient.createUserTable(email: UserDefaults.standard.value(forKey: "Email") as! String,
-                                      token: UserDefaults.standard.value(forKey: "Token") as! String,
-                                      name: firstTextField.text!, isPrivate: isPrivate,
-                                      completion: { (result) in
-                                        switch result {
-                                        case .success(_):
-                                            self.getTables()
-                                            self.tableView.reloadData()
-                                        case .failure(let error):
-                                            print(error.localizedDescription)
-                                        }
-            })
+            ApiClient.getUserGroups(email: self.email, token: self.token) { (result) in
+                switch result {
+                case .success(let groups):
+                    for group in groups.data {
+                        let action = UIAlertAction(title: group.name, style: .default, handler: { (alertC) in
+                            ApiClient.createUserTable(email: self.email, token: self.token, name: firstTextField.text!, groupId: group.id, completion: { (result) in
+                                switch result {
+                                case .success(_):
+                                    self.getTables()
+                                case .failure(let error):
+                                    print(error.localizedDescription)
+                                }
+                            })
+                        })
+                        chooseGroupAletr.addAction(action)
+                    }
+                    self.present(chooseGroupAletr, animated: true)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
         }
         
         let isPrivateAskAlert = UIAlertController(title: "Is Private?", message: "Do you want to make private table?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (alertC) -> Void in
             isPrivate = true
-            sendRequest()
+            ApiClient.createUserTable(email: self.email, token: self.token, name: firstTextField.text!, groupId: nil, completion: { (result) in
+                switch result {
+                case .success(_):
+                    self.getTables()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            })
         })
         let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.destructive, handler: { (alertC) -> Void in
             isPrivate = false
@@ -86,35 +121,50 @@ class UserTablesTableViewController: UITableViewController {
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
+        chooseGroupAletr.addAction(cancelAction)
         isPrivateAskAlert.addAction(yesAction)
         isPrivateAskAlert.addAction(noAction)
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true)
+        
+        
     }
     
-    // MARK: - Table view data source
-    //
-    //    override func numberOfSections(in tableView: UITableView) -> Int {
-    //        // #warning Incomplete implementation, return the number of sections
-    //        return tables.count
-    //    }
-    //
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return self.tables.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section < self.sectionTitles.count {
+            return sectionTitles[section]
+        } else { return nil }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+    }
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return tables.count
+        print(tables[section].count)
+        return tables[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let table = tables[indexPath.row]
-        cell.textLabel?.text = table.name
+        cell.textLabel?.text = tables[indexPath.section][indexPath.row].name
+        cell.layer.borderColor = backgroundColor.cgColor
+        cell.backgroundColor = cellColor
+        cell.layer.borderWidth = 2
+        cell.layer.cornerRadius = 6
+        cell.clipsToBounds = true
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tableId = tables[indexPath.row].id
+        let tableId = tables[indexPath.section][indexPath.row].id
         UserDefaults.standard.setValue(tableId, forKey: "TableId")
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let listCollectionViewController = storyboard.instantiateViewController(withIdentifier: "ListsController") as! ListsController
@@ -129,9 +179,9 @@ class UserTablesTableViewController: UITableViewController {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             ApiClient.deleteTable(email: UserDefaults.standard.value(forKey: "Email") as! String,
                                   token: UserDefaults.standard.value(forKey: "Token") as! String,
-                                  tableId: tables[indexPath.row].id) { (result) in
+                                  tableId: tables[indexPath.section][indexPath.row].id) { (result) in
                                     if result {
-                                        self.tables.remove(at: indexPath.row)
+                                        self.tables[indexPath.section].remove(at: indexPath.row)
                                         self.getTables()
                                         tableView.reloadData()
                                     } else {
@@ -141,9 +191,8 @@ class UserTablesTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = UIColor.green.withAlphaComponent(CGFloat(self.tables.count == 0 ? 0 : (0.6 / Double(self.tables.count)) * Double(indexPath.row + 1)))
-        
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        print("KEK")
     }
     
 }

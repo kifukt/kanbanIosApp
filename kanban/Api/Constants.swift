@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct K {
     struct ProductionServer {
@@ -18,14 +19,22 @@ struct K {
         static let email = "email"
         static let confirmation = "password_confirmation"
         static let name = "name"
-        static let isPrivate = "is_private"
+        static let groupId = "group_id"
         static let title = "title"
         static let description = "description"
         static let leaderId = "leader_id"
         static let userId = "user_id"
+        static let content = "content"
     }
 }
 
+struct AppColor {
+    static let blue = UIColor(red: 18.0/255.0, green: 78.0/255.0, blue: 120.0/255.0, alpha: 1)
+    static let beige = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 201.0/255.0, alpha: 1)
+    static let green = UIColor(red: 214.0/255.0, green: 255.0/255.0, blue: 183.0/255.0, alpha: 1)
+    static let yellow = UIColor(red: 245.0/255.0, green: 255.0/255.0, blue: 144.0/255.0, alpha: 1)
+    static let orange = UIColor(red: 255.0/255.0, green: 193.0/255.0, blue: 94.0/255.0, alpha: 1)
+}
 
 enum HTTPHeaderField: String {
     case authentication = "Authorization"

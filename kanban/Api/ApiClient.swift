@@ -43,8 +43,8 @@ class ApiClient {
         }
     }
     
-    static func createUserTable(email: String, token: String, name: String, isPrivate: Bool, completion: @escaping (Result<CreateTableObject>) -> Void) {
-        Alamofire.request(ApiRouter.createTable(email: email, token: token, name: name, isPrivate: isPrivate))
+    static func createUserTable(email: String, token: String, name: String, groupId: Int?, completion: @escaping (Result<CreateTableObject>) -> Void) {
+        Alamofire.request(ApiRouter.createTable(email: email, token: token, name: name, groupId: groupId))
             .debugLog()
             .responseJSONDecodable { (response: DataResponse<CreateTableObject>) in
             completion(response.result)
@@ -100,6 +100,24 @@ class ApiClient {
     static func deleteCard(email: String, token: String, tableId: Int, listId: Int, cardId: Int, completion: @escaping (Bool) -> Void) {
         Alamofire.request(ApiRouter.deleteCard(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId)).responseString { (response:DataResponse<String>) in
             completion(response.result.isSuccess)
+        }
+    }
+    
+    static func getComments(email: String, token: String, tableId: Int, listId: Int, cardId: Int, completion: @escaping (Result<CommentObject>) -> Void) {
+        Alamofire.request(ApiRouter.getComments(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId)).responseJSONDecodable { (response: DataResponse<CommentObject>) in
+            completion(response.result)
+        }
+    }
+    
+    static func deleteComment(email: String, token: String, tableId: Int, listId: Int, cardId: Int, commentId: Int, completion: @escaping (Bool) -> Void) {
+        Alamofire.request(ApiRouter.deleteComment(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, commentId: commentId)).responseString { (response: DataResponse<String>) in
+            completion(response.result.isSuccess)
+        }
+    }
+    
+    static func createComment(email: String, token: String, tableId: Int, listId: Int, cardId: Int, comment: String, completion: @escaping (Result<CreateCommentObject>) -> Void) {
+        Alamofire.request(ApiRouter.createComment(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, comment: comment)).responseJSONDecodable { (response: DataResponse<CreateCommentObject>) in
+            completion(response.result)
         }
     }
     

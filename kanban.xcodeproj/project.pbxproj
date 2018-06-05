@@ -27,6 +27,7 @@
 		B75C4BE4208DDB870082C584 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE3208DDB870082C584 /* LoginViewController.swift */; };
 		B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */; };
 		B77384F320AC4034000C396C /* ListObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77384F220AC4034000C396C /* ListObject.swift */; };
+		B77DD12C20C732F100652EAF /* CommentObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77DD12B20C732F100652EAF /* CommentObject.swift */; };
 		B79EA396208DF7B5005C953D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79EA395208DF7B5005C953D /* Alamofire.framework */; };
 		B7A1572620BC3A18008FC2FA /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A1572520BC3A18008FC2FA /* CardController.swift */; };
 		B7BC0CE1208DE8C700E0B4E4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */; };
@@ -57,8 +58,12 @@
 		B75C4BE3208DDB870082C584 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B75C4BE5208DDF8F0082C584 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		B77384F220AC4034000C396C /* ListObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListObject.swift; sourceTree = "<group>"; };
+		B77DD12B20C732F100652EAF /* CommentObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentObject.swift; sourceTree = "<group>"; };
 		B79EA395208DF7B5005C953D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		B7A1572520BC3A18008FC2FA /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
+		B7A33EC120C5816200FDB626 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		B7A33EC520C581CD00FDB626 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		B7A33EC920C581E600FDB626 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
 		B7BC0CE0208DE8C700E0B4E4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B7F2718220ADB8B300CD2D47 /* CardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardObject.swift; sourceTree = "<group>"; };
 		B7F9B9DA2090A4B0006381CB /* UserTablesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTablesTableViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +165,7 @@
 				B705EF6820A2F0A6008E4FB7 /* CreateTableObject.swift */,
 				B73F643F20C2D3C80011476D /* GroupObject.swift */,
 				B7F2718220ADB8B300CD2D47 /* CardObject.swift */,
+				B77DD12B20C732F100652EAF /* CommentObject.swift */,
 				B747C7D2208BAEC70015861B /* TableObject.swift */,
 			);
 			path = Objects;
@@ -217,6 +223,7 @@
 			knownRegions = (
 				en,
 				Base,
+				pl,
 			);
 			mainGroup = B7448532208894A5002430F2;
 			productRefGroup = B744853C208894A5002430F2 /* Products */;
@@ -269,6 +276,7 @@
 				B75C4BE4208DDB870082C584 /* LoginViewController.swift in Sources */,
 				B744855320889E4B002430F2 /* UserObject.swift in Sources */,
 				B7148AB720A5DF1600B421E2 /* AccountTableViewController.swift in Sources */,
+				B77DD12C20C732F100652EAF /* CommentObject.swift in Sources */,
 				B73F644220C2F1C90011476D /* GroupViewController.swift in Sources */,
 				B75C4BE6208DDF8F0082C584 /* RegistrationViewController.swift in Sources */,
 				B75311D720BAF47900671D1E /* ListCell.swift in Sources */,
@@ -295,6 +303,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				B7448543208894A5002430F2 /* Base */,
+				B7A33EC520C581CD00FDB626 /* en */,
+				B7A33EC920C581E600FDB626 /* pl */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -303,6 +313,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B7448548208894A6002430F2 /* Base */,
+				B7A33EC120C5816200FDB626 /* pl */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -314,6 +325,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -374,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

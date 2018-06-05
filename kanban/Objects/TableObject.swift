@@ -15,4 +15,6 @@ struct TableObject: Codable {
 struct TableDatas: Codable {
     let id: Int
     let name: String
+    let is_private: Bool
+    let group_id: Int?
 }

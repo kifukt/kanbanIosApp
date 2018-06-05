@@ -12,9 +12,12 @@ class AccountTableViewController: UITableViewController {
     
     let menuData = [["Log Out"],["Help","Information","Delete account"]]
     let headerTitles = ["Account", "Help"]
+    var backgroundColor = AppColor.beige
+    var cellColor = AppColor.orange
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.backgroundColor = backgroundColor
         self.navigationItem.title = "Account"
     }
 
@@ -29,6 +32,10 @@ class AccountTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return menuData.count
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -38,6 +45,10 @@ class AccountTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellText = menuData[indexPath.section][indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell", for: indexPath)
+        cell.layer.borderColor = backgroundColor.cgColor
+        cell.backgroundColor = cellColor
+        cell.layer.borderWidth = 2
+        cell.layer.cornerRadius = 6
         cell.textLabel?.text = cellText
         return cell
     }
@@ -67,14 +78,6 @@ class AccountTableViewController: UITableViewController {
                                     self.present(alert, animated: true)
                                 }
             }
-            
         }
-        
     }
-
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = UIColor.green.withAlphaComponent(CGFloat(self.menuData.count == 0 ? 0 : (0.6 / Double(self.menuData.count)) * Double(indexPath.row + 1)))
-        
-    }
-    
 }

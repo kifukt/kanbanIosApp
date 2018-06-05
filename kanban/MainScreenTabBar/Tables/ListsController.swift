@@ -12,6 +12,8 @@ import AlamofireNetworkActivityIndicator
 private let reuseIdentifier = "List"
 
 class ListsController: UICollectionViewController, UICollectionViewDelegateFlowLayout, OptionButtonsDelegate {
+
+    
     
     var lists = [ListDatas]()
     var email = String()
@@ -19,6 +21,11 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
     var tableId = Int()
     var storedOffsets = [Int: CGFloat]()
     var alert: UIViewController!
+    var backgroundColor = AppColor.beige
+    var listCellColor = AppColor.orange
+    var cardCellColor = AppColor.yellow
+    
+    
     
     private func getCards() {
         if self.lists.count >= 1 {
@@ -35,6 +42,7 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
                         
                         if index == self.lists.count - 1 {
                             self.dismiss(animated: false, completion: nil)
+                            
                             self.collectionView!.reloadData()
                         }
                     case .failure(let error):
@@ -60,18 +68,27 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Lists"
         UserDefaults.standard.removeObject(forKey: "CardId")
         UserDefaults.standard.removeObject(forKey: "ListId")
-        
+        collectionView?.backgroundColor = backgroundColor
         email = UserDefaults.standard.value(forKey: "Email") as! String
         token = UserDefaults.standard.value(forKey: "Token") as! String
         tableId = UserDefaults.standard.value(forKey: "TableId") as! Int
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addList))
-        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        self.collectionView?.addSubview(refreshControl)
+        self.collectionView?.alwaysBounceVertical = true
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addList))
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTable))
+        self.navigationItem.rightBarButtonItems = [addButton, shareButton]
         self.getLists()
         
 
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        getLists()
+        refreshControl.endRefreshing()
     }
     
     @objc func addList() {
@@ -106,6 +123,11 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
         
         self.present(alert, animated: true)
     }
+    
+    @objc func shareTable() {
+        
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -127,14 +149,22 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ListCell
-        cell.backgroundColor = UIColor.black.withAlphaComponent(CGFloat(0.3))
-        cell.listName.text = self.lists[indexPath.row].name
-        cell.listName.frame = CGRect(x: 0, y: 0, width: cell.bounds.width, height: CGFloat(44))
+        cell.backgroundColor = listCellColor
+        cell.tableView.backgroundColor = listCellColor
+        cell.tableView.separatorStyle = .none
+        cell.listNameButton.setTitle(self.lists[indexPath.row].name, for: .normal)
+        cell.listNameButton.frame = CGRect(x: 0, y: 0, width: cell.bounds.width, height: CGFloat(44))
+        cell.deleteButton.superview?.bringSubview(toFront: cell.deleteButton)
         cell.tableView.isScrollEnabled = false
         cell.delegate = self
         cell.indexPath = indexPath
+        cell.layer.cornerRadius = 6
+        cell.clipsToBounds = true
         
         return cell
+    }
+    
+    func showList(at index: IndexPath) {
     }
     
     func deleteTapped(at index: IndexPath) {
@@ -160,7 +190,7 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width, height: CGFloat((1 + (self.lists[indexPath.row].cards?.count ?? 0)) * 44 ))
+        return CGSize(width: view.bounds.width, height: CGFloat((1 + (self.lists[indexPath.row].cards?.count ?? 0)) * 45 ))
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -183,6 +213,11 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Card", for: indexPath)
+            cell.backgroundColor = cardCellColor
+            cell.layer.cornerRadius = 8
+            cell.clipsToBounds = true
+            cell.layer.borderWidth = 1
+            cell.layer.borderColor = AppColor.orange.cgColor
             cell.textLabel?.textAlignment = NSTextAlignment.center
             if let cardTitle = self.lists[tableView.tag].cards {
                 if cardTitle.count > 0 {
