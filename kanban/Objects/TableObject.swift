@@ -12,6 +12,14 @@ struct TableObject: Codable {
     let data: [TableDatas]
 }
 
+struct ShowTableObject: Codable {
+    let data: Table
+}
+
+struct Table: Codable {
+    let table: TableDatas
+}
+
 struct TableDatas: Codable {
     let id: Int
     let name: String

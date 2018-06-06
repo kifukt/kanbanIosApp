@@ -15,6 +15,10 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var groupId = Int()
     var group: UserDataGroup?
     
+    let backgroundColor = AppColor.beige
+    let textColor = AppColor.blue
+    let buttonColor = AppColor.orange
+    
     @IBOutlet weak var leaderName: UILabel!
     
     @IBOutlet weak var usersLabel: UILabel!
@@ -76,7 +80,22 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
         token = UserDefaults.standard.value(forKey: "Token") as! String
         groupId = UserDefaults.standard.value(forKey: "GroupId") as! Int
         self.getGroupInfo()
+        self.view.backgroundColor = backgroundColor
+        
+        
+        leaderName.font = leaderName.font.withSize(20)
+        leaderName.textColor = textColor
+        
+        usersLabel.textAlignment = .right
+        usersLabel.textColor = textColor
 
+        tableView.backgroundColor = backgroundColor
+        tableView.separatorStyle = .none
+        
+        addUserButton.setTitleColor(textColor, for: .normal)
+        addUserButton.titleLabel?.font = addUserButton.titleLabel?.font.withSize(15)
+        addUserButton.backgroundColor = buttonColor
+        addUserButton.layer.cornerRadius = 8
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,6 +115,9 @@ class GroupViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupUser", for: indexPath)
+        
+        cell.backgroundColor = self.backgroundColor
+        cell.textLabel?.textColor = textColor
         
         cell.textLabel?.text = self.group?.members[indexPath.row].email
         return cell

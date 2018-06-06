@@ -43,10 +43,22 @@ class ApiClient {
         }
     }
     
+    static func showTable(email: String, token: String, tableId: Int, completion: @escaping (Result<ShowTableObject>) -> Void) {
+        Alamofire.request(ApiRouter.showTable(email: email, token: token, tableId: tableId)).responseJSONDecodable { (response: DataResponse<ShowTableObject>) in
+            completion(response.result)
+        }
+    }
+    
     static func createUserTable(email: String, token: String, name: String, groupId: Int?, completion: @escaping (Result<CreateTableObject>) -> Void) {
         Alamofire.request(ApiRouter.createTable(email: email, token: token, name: name, groupId: groupId))
             .debugLog()
             .responseJSONDecodable { (response: DataResponse<CreateTableObject>) in
+            completion(response.result)
+        }
+    }
+    
+    static func updateTable(email: String, token: String, name: String, tableId: Int, completion: @escaping (Result<ShowTableObject>) -> Void) {
+        Alamofire.request(ApiRouter.updateTable(email: email, token: token, name: name, tableId: tableId)).responseJSONDecodable { (response: DataResponse<ShowTableObject>) in
             completion(response.result)
         }
     }
@@ -94,6 +106,13 @@ class ApiClient {
             .debugLog()
             .responseJSONDecodable { (response: DataResponse<CreateCardObject>) in
                 completion(response.result)
+        }
+    }
+    
+    static func updateCard(email: String, token: String, tableId: Int, listId: Int, cardId: Int, title: String, description: String, completion: @escaping (Result<CreateCardObject>) -> Void) {
+        Alamofire.request(ApiRouter.updateCard(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, title: title, description: description))
+            .responseJSONDecodable { (response: DataResponse<CreateCardObject>) in
+            completion(response.result)
         }
     }
     

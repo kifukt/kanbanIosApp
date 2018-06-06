@@ -11,9 +11,10 @@ import UIKit
 class UserTablesTableViewController: UITableViewController {
     
     var tables = [[TableDatas](),[TableDatas]()]
-    var sectionTitles = ["Private", "Public"]
-    var backgroundColor = AppColor.beige
-    var cellColor = AppColor.orange
+    let sectionTitles = ["Private", "Public"]
+    let backgroundColor = AppColor.beige
+    let cellColor = AppColor.orange
+    let textColor = AppColor.blue
     var email = String()
     var token = String()
     
@@ -155,6 +156,7 @@ class UserTablesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = tables[indexPath.section][indexPath.row].name
+        cell.textLabel?.textColor = textColor
         cell.layer.borderColor = backgroundColor.cgColor
         cell.backgroundColor = cellColor
         cell.layer.borderWidth = 2
@@ -192,7 +194,9 @@ class UserTablesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        print("KEK")
+        UserDefaults.standard.setValue(self.tables[indexPath.section][indexPath.row].id, forKey: "TableId")
+        let tableDetailController = self.storyboard?.instantiateViewController(withIdentifier: "TableDetailController") as! TableDetailController
+        self.navigationController?.pushViewController(tableDetailController, animated: true)
     }
     
 }

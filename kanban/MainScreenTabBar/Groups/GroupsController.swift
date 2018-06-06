@@ -101,6 +101,7 @@ class GroupsController: UITableViewController {
         UserDefaults.standard.setValue(self.groups[indexPath.row].id, forKey: "GroupId")
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let groupViewController = storyboard.instantiateViewController(withIdentifier: "GroupViewController") as! GroupViewController
+        groupViewController.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(groupViewController, animated: true)
     }
     

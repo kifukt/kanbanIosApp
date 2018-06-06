@@ -25,7 +25,9 @@ enum ApiRouter: URLRequestConvertible  {
     case signOut(email: String, token: String)
     
     case getUserTables(email: String, token: String)
+    case showTable(email: String, token: String, tableId: Int)
     case createTable(email: String, token: String, name: String, groupId: Int?)
+    case updateTable(email: String, token: String, name: String, tableId: Int)
     case deleteTable(email: String, token: String, tableId: Int)
     
     case getTableLists(email: String, token: String, tableId: Int)
@@ -34,6 +36,7 @@ enum ApiRouter: URLRequestConvertible  {
     
     case getCards(email: String, token: String, tableId: Int, listId: Int)
     case createCard(email: String, token: String, tableId: Int, listId: Int, title: String, description: String)
+    case updateCard(email: String, token: String, tableId: Int, listId: Int, cardId: Int, title: String, description: String)
     case deleteCard(email: String, token: String, tableId: Int, listId: Int, cardId: Int)
     
     case getComments(email: String, token: String, tableId: Int, listId: Int, cardId: Int)
@@ -61,8 +64,12 @@ enum ApiRouter: URLRequestConvertible  {
             
         case .getUserTables:
             return .get
+        case .showTable:
+            return .get
         case .createTable:
             return .post
+        case .updateTable:
+            return .put
         case .deleteTable:
             return .delete
             
@@ -77,6 +84,8 @@ enum ApiRouter: URLRequestConvertible  {
             return .get
         case .createCard:
             return .post
+        case .updateCard:
+            return .put
         case .deleteCard:
             return .delete
             
@@ -115,18 +124,26 @@ enum ApiRouter: URLRequestConvertible  {
             return "/users"
         case .getUserTables, .createTable:
             return "/tables"
+        case .showTable(email: _, token: _, tableId: let tableId):
+            return "/tables/" + String(tableId)
+        case .updateTable(email: _, token: _, name: _, tableId: let tableId):
+            return "/tables/" + String(tableId)
+        case .deleteTable(email: _, token: _, tableId: let tableId):
+            return "/tables/" + String(tableId)
+            
         case .getTableLists(email: _, token: _, tableId: let tableId):
             return "/tables/" + String(tableId) + "/lists"
         case .createTableList(email: _, token: _, tableId: let tableId, listName: _):
             return "/tables/" + String(tableId) + "/lists"
         case .deleteList(email: _, token: _, tableId: let tableId, listId: let listId):
             return "/tables/" + String(tableId) + "/lists/" + String(listId)
-        case .deleteTable(email: _, token: _, tableId: let tableId):
-            return "/tables/" + String(tableId)
+            
         case .getCards(email: _, token: _, tableId: let tableId, listId: let listId):
             return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards"
         case .createCard(email: _, token: _, tableId: let tableId, listId: let listId, title: _, description: _):
             return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards"
+        case .updateCard(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId, title: _, description: _):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId)
         case .deleteCard(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId):
             return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId)
             
@@ -157,16 +174,22 @@ enum ApiRouter: URLRequestConvertible  {
         switch self {
         case .signIn(let email, let password):
             return [K.APIParameterKey.password: password, K.APIParameterKey.email: email]
-        case .signOut, .getUserTables, .getTableLists, .getCards, .getUserGroups, .showGroup, .getComments,
+        case .signOut, .getUserTables, .getTableLists, .getCards, .getUserGroups, .showGroup, .getComments, .showTable,
              .deleteTable, .deleteCard, .deleteList, .deleteGroup, .deleteComment:
             return nil
         case .register(email: let email, password: let password, passwordConfirmation: let passwordConfirmation):
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password, K.APIParameterKey.confirmation: passwordConfirmation]
         case .createTable(email: _, token: _, name: let name, groupId: let groupId):
             return [K.APIParameterKey.name: name, K.APIParameterKey.groupId: groupId ?? "null"]
+        case .updateTable(email: _, token: _, name: let name, tableId: _):
+            return [K.APIParameterKey.name: name]
+            
         case .createTableList(email: _, token: _, tableId: _, listName: let name):
             return [K.APIParameterKey.name: name]
+            
         case .createCard(email: _, token: _, tableId: _, listId: _, title: let title, description: let description):
+            return [K.APIParameterKey.title: title, K.APIParameterKey.description: description]
+        case .updateCard(email: _, token: _, tableId: _, listId: _, cardId: _, title: let title, description: let description):
             return [K.APIParameterKey.title: title, K.APIParameterKey.description: description]
             
         case .createComment(email: _, token: _, tableId: _, listId: _, cardId: _, comment: let comment):
@@ -200,7 +223,15 @@ enum ApiRouter: URLRequestConvertible  {
             return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
                     HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]
+        case .showTable(email: let email, token: let token, tableId: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
         case .createTable(email: let email, token: let token, name: _, groupId: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .updateTable(email: let email, token: let token, name: _, tableId: _):
             return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
                     HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]
@@ -225,6 +256,10 @@ enum ApiRouter: URLRequestConvertible  {
             return [HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]
         case .createCard(email: let email, token: let token, tableId: _, listId: _, title: _, description: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .updateCard(email: let email, token: let token, tableId: _, listId: _, cardId: _, title: _, description: _):
             return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
                     HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]

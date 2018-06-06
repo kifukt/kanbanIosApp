@@ -21,9 +21,10 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
     var tableId = Int()
     var storedOffsets = [Int: CGFloat]()
     var alert: UIViewController!
-    var backgroundColor = AppColor.beige
-    var listCellColor = AppColor.orange
-    var cardCellColor = AppColor.yellow
+    let backgroundColor = AppColor.beige
+    let listCellColor = AppColor.orange
+    let cardCellColor = AppColor.yellow
+    let textColor = AppColor.blue
     
     
     
@@ -214,6 +215,7 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Card", for: indexPath)
             cell.backgroundColor = cardCellColor
+            cell.textLabel?.textColor = textColor
             cell.layer.cornerRadius = 8
             cell.clipsToBounds = true
             cell.layer.borderWidth = 1
@@ -264,6 +266,7 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
                 UserDefaults.standard.setValue(self.lists[tableView.tag].cards![indexPath.row].id, forKey: "CardId")
                 UserDefaults.standard.setValue(self.lists[tableView.tag].id, forKey: "ListId")
                 let cardController = self.storyboard?.instantiateViewController(withIdentifier: "CardController") as! CardController
+                cardController.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(cardController, animated: true)
             }
         }

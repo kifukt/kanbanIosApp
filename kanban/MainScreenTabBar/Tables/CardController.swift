@@ -14,10 +14,21 @@ class CardController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var cardDescription: UITextView!
     
-    var backgroundColor = AppColor.beige
+    let backgroundColor = AppColor.beige
+    let buttonColor = AppColor.orange
+    let textColor = AppColor.blue
     
     @IBOutlet weak var editButtonLabel: UIButton!
     @IBAction func editButton(_ sender: UIButton) {
+        ApiClient.updateCard(email: self.email, token: self.token, tableId: self.tableId, listId: self.listId, cardId: self.cardId, title: self.card.title, description: self.cardDescription.text) { (result) in
+            switch result {
+            case .success(let card):
+                self.card.description = card.data.card.description
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
     }
     
     @IBOutlet weak var deleteButtonLabel: UIButton!
@@ -83,30 +94,42 @@ class CardController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Card"
+        
         commentTextField.delegate = self
+        commentTextField.textColor = textColor
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        self.tabBarController?.tabBar.isHidden = true
-        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        loadingIndicator.startAnimating()
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = backgroundColor
-        alert.view.addSubview(loadingIndicator)
+        
         self.view.backgroundColor = backgroundColor
+        
         cardName.font = cardName.font.withSize(50)
-        cardName.layer.borderColor = backgroundColor.cgColor
         cardName.layer.cornerRadius = 6
-        cardName.layer.borderWidth = 3
         cardName.backgroundColor = AppColor.yellow
+        cardName.textColor = textColor
+        
+        editButtonLabel.setTitleColor(textColor, for: .normal)
+        editButtonLabel.titleLabel?.font = editButtonLabel.titleLabel?.font.withSize(25)
+        editButtonLabel.backgroundColor = buttonColor
+        editButtonLabel.layer.cornerRadius = 6
+        
+        deleteButtonLabel.setTitleColor(textColor, for: .normal)
+        deleteButtonLabel.titleLabel?.font = deleteButtonLabel.titleLabel?.font.withSize(25)
+        deleteButtonLabel.backgroundColor = UIColor.red.withAlphaComponent(0.5)
+        deleteButtonLabel.layer.cornerRadius = 6
+        
         email = UserDefaults.standard.value(forKey: "Email") as! String
         token = UserDefaults.standard.value(forKey: "Token") as! String
         tableId = UserDefaults.standard.value(forKey: "TableId") as! Int
         listId = UserDefaults.standard.value(forKey: "ListId") as! Int
         cardId = UserDefaults.standard.value(forKey: "CardId") as! Int
+        
         view.addGestureRecognizer(tap)
+        
         self.getComments()
         ApiClient.getCards(email: self.email, token: self.token, tableId: self.tableId, listId: self.listId) { (result) in
             switch result {

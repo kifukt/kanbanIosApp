@@ -32,5 +32,5 @@ struct DataType: Codable {
 struct CardData: Codable {
     let id: Int?
     let title: String
-    let description: String?
+    var description: String?
 }
