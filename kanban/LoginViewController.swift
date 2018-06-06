@@ -11,8 +11,16 @@ import Alamofire
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var appNamelabel: UILabel!
+    @IBOutlet weak var registrationButtonLabel: UIButton!
+    @IBOutlet weak var loginButtonLabel: UIButton!
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    
+    let backgrouondColor = AppColor.beige
+    let textColor = AppColor.blue
+    let buttonColor = AppColor.orange
+    let textfieldColor = AppColor.yellow
     
     @IBAction func logInButton(_ sender: UIButton) {
         ApiClient.signIn(email: loginField.text ?? "", password: passwordField.text ?? "") { (result) in
@@ -32,11 +40,26 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
         let email = UserDefaults.standard.value(forKey: "Email") ?? nil
         let token = UserDefaults.standard.value(forKey: "Token") ?? nil
+        
+        self.view.backgroundColor = backgrouondColor
+        
+        appNamelabel.font = appNamelabel.font.withSize(50)
+        appNamelabel.text = "KANBAN"
+        appNamelabel.textColor = textColor
+        
+        loginField.backgroundColor = textfieldColor
+        passwordField.backgroundColor = textfieldColor
+        
+        registrationButtonLabel.setTitleColor(textColor, for: .normal)
+        loginButtonLabel.setTitleColor(textColor, for: .normal)
+        
         
         if (token != nil) {
             if (email != nil) {

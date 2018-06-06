@@ -13,8 +13,9 @@ class GroupsController: UITableViewController {
     var groups = [GroupDatas]()
     var email = String()
     var token = String()
-    var backgroundColor = AppColor.beige
-    var cellColor = AppColor.orange
+    let backgroundColor = AppColor.beige
+    let cellColor = AppColor.orange
+    let textColor = AppColor.blue
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +93,7 @@ class GroupsController: UITableViewController {
         cell.textLabel?.textAlignment = NSTextAlignment.center
         cell.layer.borderColor = backgroundColor.cgColor
         cell.backgroundColor = cellColor
+        cell.textLabel?.textColor = textColor
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 6
         return cell

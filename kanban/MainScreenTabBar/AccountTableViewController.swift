@@ -12,8 +12,9 @@ class AccountTableViewController: UITableViewController {
     
     let menuData = [["Log Out"],["Help","Information","Delete account"]]
     let headerTitles = ["Account", "Help"]
-    var backgroundColor = AppColor.beige
-    var cellColor = AppColor.orange
+    let backgroundColor = AppColor.beige
+    let cellColor = AppColor.orange
+    let textColor = AppColor.blue
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,7 @@ class AccountTableViewController: UITableViewController {
         cell.layer.borderColor = backgroundColor.cgColor
         cell.backgroundColor = cellColor
         cell.layer.borderWidth = 2
+        cell.textLabel?.textColor = textColor
         cell.layer.cornerRadius = 6
         cell.textLabel?.text = cellText
         return cell
