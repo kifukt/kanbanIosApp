@@ -9,11 +9,21 @@
 import UIKit
 
 class RegistrationViewController: UIViewController {
+    
+    let backgroundColor = AppColor.beige
+    let textColor = AppColor.blue
+    let buttonColor = AppColor.orange
+    let textFieldColor = AppColor.yellow
+    
+    @IBOutlet weak var registrationLabel: UILabel!
+    
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBOutlet weak var confirmationTextField: UITextField!
+    
+    @IBOutlet weak var registerButtonLabel: UIButton!
     
     @IBAction func registerButton(_ sender: UIButton) {
         ApiClient.register(with: emailTextField.text ?? "",
@@ -33,7 +43,19 @@ class RegistrationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = false
-        // Do any additional setup after loading the view.
+        
+        self.view.backgroundColor = backgroundColor
+        
+        registrationLabel.textColor = textColor
+        registrationLabel.font = registrationLabel.font.withSize(30)
+        
+        emailTextField.backgroundColor = textFieldColor
+        
+        passwordTextField.backgroundColor = textFieldColor
+        
+        confirmationTextField.backgroundColor = textFieldColor
+        
+        registerButtonLabel.setTitleColor(textColor, for: .normal)
     }
 
     override func didReceiveMemoryWarning() {

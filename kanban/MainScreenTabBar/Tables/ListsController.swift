@@ -80,8 +80,7 @@ class ListsController: UICollectionViewController, UICollectionViewDelegateFlowL
         self.collectionView?.addSubview(refreshControl)
         self.collectionView?.alwaysBounceVertical = true
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addList))
-        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTable))
-        self.navigationItem.rightBarButtonItems = [addButton, shareButton]
+        self.navigationItem.rightBarButtonItems = [addButton]
         self.getLists()
         
 

@@ -73,6 +73,7 @@ class AccountTableViewController: UITableViewController {
                                     UserDefaults.standard.removeObject(forKey: "Token")
                                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                     let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginSignupVC")
+                                    loginViewController.hidesBottomBarWhenPushed = true
                                     self.navigationController?.pushViewController(loginViewController, animated: true)
                                 } else {
                                     let alert = UIAlertController(title: "Oups", message: "Something went wrong!", preferredStyle: .alert)

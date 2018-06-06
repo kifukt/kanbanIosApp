@@ -142,6 +142,8 @@
                         <outlet property="confirmationTextField" destination="5eu-Xq-QB3" id="pHS-2k-BRh"/>
                         <outlet property="emailTextField" destination="m81-eu-rQ8" id="yfS-12-qiW"/>
                         <outlet property="passwordTextField" destination="DQt-JB-Uwh" id="rCV-vK-i0k"/>
+                        <outlet property="registerButtonLabel" destination="lzz-ut-OpL" id="Tya-2f-c8L"/>
+                        <outlet property="registrationLabel" destination="qDX-bn-L09" id="GGF-kp-APr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JXT-yg-STI" userLabel="First Responder" sceneMemberID="firstResponder"/>
