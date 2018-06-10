@@ -8,15 +8,16 @@
 
 import Foundation
 
-struct UserObject: Decodable {
+struct UserObject: Codable {
     let data: UserParams
 }
 
-struct UserParams: Decodable {
+struct UserParams: Codable {
     let user: User
 }
 
-struct User: Decodable {
+struct User: Codable {
+    let id: Int?
     let email: String
-    let authentication_token: String
+    let authentication_token: String?
 }

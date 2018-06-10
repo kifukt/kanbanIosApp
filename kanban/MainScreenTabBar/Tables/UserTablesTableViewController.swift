@@ -79,8 +79,9 @@ class UserTablesTableViewController: UITableViewController {
                         let action = UIAlertAction(title: group.name, style: .default, handler: { (alertC) in
                             ApiClient.createUserTable(email: self.email, token: self.token, name: firstTextField.text!, groupId: group.id, completion: { (result) in
                                 switch result {
-                                case .success(_):
-                                    self.getTables()
+                                case .success(let newTable):
+                                    self.tables[1].append(newTable.data.table)
+                                    self.tableView.reloadData()
                                 case .failure(let error):
                                     print(error.localizedDescription)
                                 }
@@ -100,8 +101,9 @@ class UserTablesTableViewController: UITableViewController {
             isPrivate = true
             ApiClient.createUserTable(email: self.email, token: self.token, name: firstTextField.text!, groupId: nil, completion: { (result) in
                 switch result {
-                case .success(_):
-                    self.getTables()
+                case .success(let newTable):
+                    self.tables[0].append(newTable.data.table)
+                    self.tableView.reloadData()
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
@@ -148,8 +150,6 @@ class UserTablesTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        print(tables[section].count)
         return tables[section].count
     }
     

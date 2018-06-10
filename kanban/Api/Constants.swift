@@ -25,6 +25,8 @@ struct K {
         static let leaderId = "leader_id"
         static let userId = "user_id"
         static let content = "content"
+        static let assignedTo = "assigned_to"
+        static let isFinished = "is_finished"
     }
 }
 

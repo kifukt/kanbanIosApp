@@ -43,6 +43,16 @@ enum ApiRouter: URLRequestConvertible  {
     case createComment(email: String, token: String, tableId: Int, listId: Int, cardId: Int, comment: String)
     case deleteComment(email: String, token: String, tableId: Int, listId: Int, cardId: Int, commentId: Int)
     
+    case getTaskLists(email: String, token: String, tableId: Int, listId: Int, cardId: Int)
+    case showTaskList(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int)
+    case createTaskList(email: String, token: String, tableId: Int, listId: Int, cardId: Int, name: String)
+    case deleteTaskList(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int)
+    
+    case getTasks(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int)
+    case createTask(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int, name: String)
+    case updateTask(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int, taskId: Int, name: String, isFinished: Bool, assignedToUser: Int)
+    case deleteTask(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int, taskId: Int)
+    
     case getUserGroups(email: String, token: String)
     case createGroup(email: String, token: String, groupName: String)
     case deleteGroup(email: String, token: String, groupId: Int)
@@ -94,6 +104,24 @@ enum ApiRouter: URLRequestConvertible  {
         case .createComment:
             return .post
         case .deleteComment:
+            return .delete
+            
+        case .getTaskLists:
+            return .get
+        case .showTaskList:
+            return .get
+        case .createTaskList:
+            return .post
+        case .deleteTaskList:
+            return .delete
+            
+        case .getTasks:
+            return .get
+        case .createTask:
+            return .post
+        case .updateTask:
+            return .put
+        case .deleteTask:
             return .delete
             
         case .getUserGroups:
@@ -154,6 +182,26 @@ enum ApiRouter: URLRequestConvertible  {
         case .deleteComment(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId, commentId: let commentId):
             return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId) + "/comments/" + String(commentId)
             
+        case .getTaskLists(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId) + "/tasks_lists"
+        case .showTaskList(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId, taskListId: let taskListId):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId) + "/tasks_lists" + String(taskListId)
+        case .createTaskList(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId, name: _):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId) + "/tasks_lists"
+        case .deleteTaskList(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId, taskListId: let taskListId):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId) + "/tasks_lists" + String(taskListId)
+            
+        case .getTasks(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId, taskListId: let taskListId):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId) + "/tasks_lists/" + String(taskListId) + "/tasks"
+        case .createTask(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId,
+                         taskListId: let taskListId, name: _):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId) + "/tasks_lists/" + String(taskListId) + "/tasks"
+        case .updateTask(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId,
+                         taskListId: let taskListId, taskId: let taskId, name: _, isFinished: _, assignedToUser: _):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId) + "/tasks_lists/" + String(taskListId) + "/tasks/" + String(taskId)
+        case .deleteTask(email: _, token: _, tableId: let tableId, listId: let listId, cardId: let cardId, taskListId: let taskListId, taskId: let taskId):
+            return "/tables/" + String(tableId) + "/lists/" + String(listId) + "/cards/" + String(cardId) + "/tasks_lists/" + String(taskListId) + "/tasks/" + String(taskId)
+            
         case .getUserGroups, .createGroup:
             return "/groups"
         case .deleteGroup(email: _, token: _, groupId: let groupId):
@@ -180,7 +228,7 @@ enum ApiRouter: URLRequestConvertible  {
         case .register(email: let email, password: let password, passwordConfirmation: let passwordConfirmation):
             return [K.APIParameterKey.email: email, K.APIParameterKey.password: password, K.APIParameterKey.confirmation: passwordConfirmation]
         case .createTable(email: _, token: _, name: let name, groupId: let groupId):
-            return [K.APIParameterKey.name: name, K.APIParameterKey.groupId: groupId ?? "null"]
+            return [K.APIParameterKey.name: name, K.APIParameterKey.groupId: groupId as Any]
         case .updateTable(email: _, token: _, name: let name, tableId: _):
             return [K.APIParameterKey.name: name]
             
@@ -194,6 +242,20 @@ enum ApiRouter: URLRequestConvertible  {
             
         case .createComment(email: _, token: _, tableId: _, listId: _, cardId: _, comment: let comment):
             return [K.APIParameterKey.content: comment]
+            
+        case .getTaskLists, .showTaskList, .deleteTaskList:
+            return nil
+        case .createTaskList(email: _, token: _, tableId: _, listId: _, cardId: _, name: let name):
+            return [K.APIParameterKey.name: name]
+            
+        case .getTasks, .deleteTask:
+            return nil
+        case .createTask(email: _, token: _, tableId: _, listId: _, cardId: _, taskListId: _, name: let name):
+            return [K.APIParameterKey.content: name]
+        case .updateTask(email: _, token: _, tableId: _, listId: _, cardId: _, taskListId: _, taskId: _, name: let name, isFinished: let isFinished, assignedToUser: let assignedToUser):
+            return [K.APIParameterKey.content: name,
+                    K.APIParameterKey.assignedTo: assignedToUser,
+                    K.APIParameterKey.isFinished: isFinished]
             
         case .createGroup(email: _, token: _, groupName: let groupName):
             return [K.APIParameterKey.name: groupName]
@@ -277,6 +339,40 @@ enum ApiRouter: URLRequestConvertible  {
                     HTTPHeaderField.token.rawValue: token,
                     HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue]
         case .deleteComment(email: let email, token: let token, tableId: _, listId: _, cardId: _, commentId: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+            
+        case .getTaskLists(email: let email, token: let token, tableId: _, listId: _, cardId: _):
+            return[HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                   HTTPHeaderField.email.rawValue: email,
+                   HTTPHeaderField.token.rawValue: token]
+        case .showTaskList(email: let email, token: let token, tableId: _, listId: _, cardId: _, taskListId: _):
+            return[HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                   HTTPHeaderField.email.rawValue: email,
+                   HTTPHeaderField.token.rawValue: token]
+        case .createTaskList(email: let email, token: let token, tableId: _, listId: _, cardId: _, name: _):
+            return[HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                   HTTPHeaderField.email.rawValue: email,
+                   HTTPHeaderField.token.rawValue: token]
+        case .deleteTaskList(email: let email, token: let token, tableId: _, listId: _, cardId: _, taskListId: _):
+            return[HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                   HTTPHeaderField.email.rawValue: email,
+                   HTTPHeaderField.token.rawValue: token]
+            
+        case .getTasks(email: let email, token: let token, tableId: _, listId: _, cardId: _, taskListId: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .createTask(email: let email, token: let token, tableId: _, listId: _, cardId: _, taskListId: _, name: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .updateTask(email: let email, token: let token, tableId: _, listId: _, cardId: _, taskListId: _, taskId: _, name: _, isFinished: _, assignedToUser: _):
+            return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
+                    HTTPHeaderField.email.rawValue: email,
+                    HTTPHeaderField.token.rawValue: token]
+        case .deleteTask(email: let email, token: let token, tableId: _, listId: _, cardId: _, taskListId: _, taskId: _):
             return [HTTPHeaderField.contentType.rawValue: ContentType.json.rawValue,
                     HTTPHeaderField.email.rawValue: email,
                     HTTPHeaderField.token.rawValue: token]

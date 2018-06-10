@@ -11,7 +11,7 @@ import UIKit
 class CardController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var cardName: UILabel!
-    
+    @IBOutlet weak var taskListsButtonLabel: UIButton!
     @IBOutlet weak var cardDescription: UITextView!
     
     let backgroundColor = AppColor.beige
@@ -57,6 +57,11 @@ class CardController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func taskListsButtonTapped(_ sender: UIButton) {
+        let taskListsController = self.storyboard?.instantiateViewController(withIdentifier: "TaskListsController") as! TaskListsController
+        self.navigationController?.pushViewController(taskListsController, animated: true)
+    }
+    
     @IBOutlet weak var commentTextField: UITextField!
     
     @IBAction func sendCommentTapped(_ sender: UIButton) {
@@ -65,7 +70,9 @@ class CardController: UIViewController, UITextFieldDelegate {
                 switch result {
                 case .success(let newComment):
                     self.comments.append(newComment.data)
-                    self.tableView.reloadData()
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
@@ -98,6 +105,7 @@ class CardController: UIViewController, UITextFieldDelegate {
         
         commentTextField.delegate = self
         commentTextField.textColor = textColor
+        commentTextField.addTarget(self, action: #selector(CardController.textFieldReturned), for: UIControlEvents.editingDidEndOnExit)
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 
@@ -121,6 +129,11 @@ class CardController: UIViewController, UITextFieldDelegate {
         deleteButtonLabel.titleLabel?.font = deleteButtonLabel.titleLabel?.font.withSize(25)
         deleteButtonLabel.backgroundColor = UIColor.red.withAlphaComponent(0.5)
         deleteButtonLabel.layer.cornerRadius = 6
+        
+        taskListsButtonLabel.setTitleColor(textColor, for: .normal)
+        taskListsButtonLabel.titleLabel?.font = editButtonLabel.titleLabel?.font.withSize(25)
+        taskListsButtonLabel.backgroundColor = buttonColor
+        taskListsButtonLabel.layer.cornerRadius = 6
         
         email = UserDefaults.standard.value(forKey: "Email") as! String
         token = UserDefaults.standard.value(forKey: "Token") as! String
@@ -146,10 +159,24 @@ class CardController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    @objc func textFieldReturned() {
+        if let comment = commentTextField.text {
+            ApiClient.createComment(email: self.email, token: self.token, tableId: tableId, listId: listId, cardId: cardId, comment: comment) { (result) in
+                switch result {
+                case .success(let newComment):
+                    self.comments.append(newComment.data)
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
+//
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
@@ -168,6 +195,7 @@ extension CardController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardComment", for: indexPath)
         cell.textLabel?.text = self.comments[indexPath.row].content
         cell.backgroundColor = backgroundColor

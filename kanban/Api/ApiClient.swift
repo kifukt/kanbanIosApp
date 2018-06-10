@@ -140,6 +140,55 @@ class ApiClient {
         }
     }
     
+    static func getTaskLists(email: String, token: String, tableId: Int, listId: Int, cardId: Int, comletion: @escaping (Result<TaskListObject>) -> Void) {
+        Alamofire.request(ApiRouter.getTaskLists(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId)).responseJSONDecodable { (response: DataResponse<TaskListObject>) in
+            comletion(response.result)
+        }
+    }
+    
+    static func showTaskList(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int, completion: @escaping (Result<CreateTaskListObject>) -> Void) {
+        Alamofire.request(ApiRouter.showTaskList(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, taskListId: taskListId)).responseJSONDecodable { (response: DataResponse<CreateTaskListObject>) in
+            completion(response.result)
+        }
+    }
+    
+    static func createTaskList(email: String, token: String, tableId: Int, listId: Int, cardId: Int, name: String, completion: @escaping (Result<CreateTaskListObject>) -> Void) {
+        Alamofire.request(ApiRouter.createTaskList(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, name: name)).responseJSONDecodable { (response: DataResponse<CreateTaskListObject>) in
+            completion(response.result)
+        }
+    }
+    
+    static func deleteTaskList(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int, completion: @escaping (Bool) -> Void) {
+        Alamofire.request(ApiRouter.deleteTaskList(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, taskListId: taskListId)).responseString { (response: DataResponse<String>) in
+            completion(response.result.isSuccess)
+        }
+    }
+    
+    static func getTasks(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int, completion: @escaping (Result<TaskObject>) -> Void) {
+        Alamofire.request(ApiRouter.getTasks(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, taskListId: taskListId)).responseJSONDecodable { (response: DataResponse<TaskObject>) in
+            completion(response.result)
+        }
+    }
+    
+    static func createTask(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int, name: String, completion: @escaping (Result<CreateTaskObject>) -> Void) {
+        Alamofire.request(ApiRouter.createTask(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, taskListId: taskListId, name: name)).responseJSONDecodable { (response: DataResponse<CreateTaskObject>) in
+            completion(response.result)
+        }
+    }
+    
+    static func updateTask(email: String, token: String, tableId: Int, listId: Int, cardId: Int,
+                           taskListId: Int, taskId: Int, name: String, isFinished: Bool, assignedToUser: Int, completion: @escaping (Result<CreateTaskObject>) -> Void) {
+        Alamofire.request(ApiRouter.updateTask(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, taskListId: taskListId, taskId: taskId, name: name, isFinished: isFinished, assignedToUser: assignedToUser)).responseJSONDecodable { (response: DataResponse<CreateTaskObject>) in
+            completion(response.result)
+        }
+    }
+    
+    static func deleteTask(email: String, token: String, tableId: Int, listId: Int, cardId: Int, taskListId: Int, taskId: Int, completion: @escaping (Bool) -> Void) {
+        Alamofire.request(ApiRouter.deleteTask(email: email, token: token, tableId: tableId, listId: listId, cardId: cardId, taskListId: taskListId, taskId: taskId)).responseString { (response: DataResponse<String>) in
+            completion(response.result.isSuccess)
+        }
+    }
+    
     static func getUserGroups(email: String, token: String, completion: @escaping (Result<GroupsObject>) -> Void) {
         Alamofire.request(ApiRouter.getUserGroups(email: email, token: token)).responseJSONDecodable { (response: DataResponse<GroupsObject>) in
             completion(response.result)
